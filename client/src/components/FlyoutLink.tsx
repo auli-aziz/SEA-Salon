@@ -18,7 +18,7 @@ const FlyoutLink = ({
     <div className="relative h-fit w-fit flex items-center">
       <a
         href={href}
-        className="relative pl-5 pb-2 md:py-0 text-neutral-200 md:text-neutral-950 hover:text-red-500 font-bold text-xl font-economica"
+        className="relative pl-5 pb-2 md:py-0 text-gray-200 md:text-gray-900 hover:text-red-500 font-bold text-xl font-economica"
       >
         {children}
       </a>
@@ -31,7 +31,7 @@ const FlyoutLink = ({
         />
       )}
       {showDropDown && (
-        <div className="absolute hidden md:block left-1/2 top-12 -translate-x-1/2 bg-white text-black z-20">
+        <div className="absolute hidden md:block left-1/2 top-12 -translate-x-1/2 bg-white text-black font-montserrat z-20">
           <FlyoutContent />
         </div>
       )}

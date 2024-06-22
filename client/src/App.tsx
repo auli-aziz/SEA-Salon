@@ -19,7 +19,7 @@ export default function App() {
   window.addEventListener("scroll", handleNavbar);
 
   return (
-    <div className="min-h-screen w-full bg-neutral-300">
+    <div className="min-h-screen w-full bg-neutral-200">
       <NavBar isFixed={showNav} />
       <Routes>
         <Route path="/" element={<Home />}/>

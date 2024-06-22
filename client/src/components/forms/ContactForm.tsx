@@ -1,9 +1,9 @@
 export default function ContactForm() {
   return (
-    <div className="px-14 py-3 w-full h-[400px] flex-2 relative">
+    <div className="px-14 py-3 w-full xl:w-[770px] h-[400px] flex-2 relative">
       <form
         action=""
-        className="lg:w-[600px] lg:ml-10 md:w-[670px] sm:w-[500px] w-[280px] bg-white px-10 py-12 flex flex-col shadow-2xl absolute"
+        className="lg:w-[700px] md:w-[670px] sm:w-[500px] w-[280px] bg-white px-10 py-12 flex flex-col shadow-2xl absolute xl:left-14 lg:left-52"
       >
         <input
           type="text"

@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auli-aziz/SEA-Salon.git"
+  },
+  "author": "Aulia A Aziz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/auli-aziz/SEA-Salon/issues"
+  },
+  "homepage": "https://github.com/auli-aziz/SEA-Salon#readme",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}

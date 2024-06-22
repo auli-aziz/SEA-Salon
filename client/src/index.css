@@ -7,3 +7,7 @@
 * {
   @apply transition-colors duration-200 scroll-smooth
 }
+
+.slick-slide > div {
+  margin: 0 10px
+}
