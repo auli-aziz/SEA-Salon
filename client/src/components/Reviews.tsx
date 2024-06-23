@@ -74,21 +74,23 @@ export default function Reviews() {
             Add Review
           </button>
         </div>
-        <div className="h-fit lg:w-[800px] md:w-[600px] sm:w-[400px] w-[20px]">
-          <Slider {...settings}>
-            {reviews && reviews.map((review, idx) => (
-              <div key={idx} className="h-60 p-3 bg-gray-200 rounded-xl">
-                <FaQuoteLeft className="text-3xl"/>
-                <div className="font-montserrat mt-3 text-sm">
-                  {review.comment}
+        <div className="h-fit lg:w-[800px] md:w-[600px] sm:w-[400px] w-[200px]">
+          {(reviews && reviews.length > 2) ? (
+            <Slider {...settings}>
+              {reviews.map((review) => (
+                <div key={review._id} className="h-60 p-3 bg-gray-200 rounded-xl">
+                  <FaQuoteLeft className="text-3xl"/>
+                  <div className="font-montserrat mt-3 text-sm">
+                    {review.comment}
+                  </div>
+                  <div className="absolute bottom-4">
+                    <p className="font-bold font-montserrat">{review.name}</p>
+                    <Rating value={review.rating} readonly />
+                  </div>
                 </div>
-                <div className="absolute bottom-4">
-                  <p className="font-bold font-montserrat">{review.name}</p>
-                  <Rating value={review.rating} readonly />
-                </div>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </Slider>
+          ) : <p className="text-center text-gray-200 font-montserrat">No reviews available</p>}
         </div>
         <ReviewModal open={open} handleOpen={handleOpen} />
       </div>

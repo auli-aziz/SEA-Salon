@@ -1,39 +1,18 @@
-const fs = require("fs");
-const path = require("path");
+const mongoose = require("mongoose");
 
-const p = path.join(
-  path.dirname(process.mainModule.filename),
-  'data',
-  'reviews.json'
-);
-
-const getReviewsFromFile = cb => {
-  fs.readFile(p, (err, fileContent) => {
-    if(err) {
-      cb([]);
-    } else {
-      cb(JSON.parse(fileContent));
-    }
-  })
-}
-
-module.exports = class Review {
-  constructor(n, c, r) {
-    this.name = n;
-    this.comment = c;
-    this.rating = r;
+const ReviewSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  comment: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
   }
+});
 
-  save() {
-    getReviewsFromFile((reviews) => {
-      reviews.push(this);
-      fs.writeFile(p, JSON.stringify(reviews), err => {
-        console.log(err);
-      });
-    });
-  }
-
-  static fetchAll(cb) {
-    getReviewsFromFile(cb);
-  }
-}
+module.exports = mongoose.model("Review", ReviewSchema);

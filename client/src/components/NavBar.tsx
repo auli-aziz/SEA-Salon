@@ -7,8 +7,8 @@ export default function NavBar({ isFixed }: {isFixed: boolean}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={`w-full h-fit px-16 flex items-center justify-between py-5 bg-gray-200 z-20 shadow-lg ${isFixed? "fixed" : "static"}`}>
-      <h3 className="font-heading text-4xl md:text-5xl font-bold text-red-900">
+    <div className={`w-full h-fit px-16 flex items-center justify-between py-5 bg-gray-100 z-20 shadow-lg ${isFixed? "fixed" : "static"}`}>
+      <h3 className="font-heading text-4xl md:text-5xl font-bold text-red-800">
         <a href="/">SEA Salon</a>
       </h3>
       <nav className={`h-fit md:h-full w-[96%] md:w-fit md:flex items-center absolute md:static md:bg-gray-200 bg-red-900 md:py-0 py-5 md:shadow-none shadow-2xl z-20 ${

@@ -4,6 +4,7 @@ import Footer from "./components/Footer.tsx";
 import Home from "./pages/Home.tsx";
 import Services from "./pages/Services.tsx";
 import { useState } from "react";
+import Reservation from "./pages/Reservation.tsx";
 
 export default function App() {
   const [showNav, setShowNav] = useState(false);
@@ -19,11 +20,12 @@ export default function App() {
   window.addEventListener("scroll", handleNavbar);
 
   return (
-    <div className="min-h-screen w-full bg-neutral-200">
+    <div className="min-h-screen h-fit w-full bg-neutral-200">
       <NavBar isFixed={showNav} />
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/services" element={<Services />} />
+        <Route path="/reservation" element={<Reservation />} />
       </Routes>
       <Footer />
     </div>

@@ -33,7 +33,12 @@ export default function ReviewModal({ open, handleOpen }: { open: boolean, handl
         console.log(response);
       }
     } catch(error) {
-      console.log(error);
+      let errorMessage;
+      if (error instanceof Error) {
+        errorMessage = error.response.data;
+      }
+      setIsLoading(false);
+      console.log(errorMessage);
     }
   }
 
@@ -62,7 +67,8 @@ export default function ReviewModal({ open, handleOpen }: { open: boolean, handl
         <CardFooter className="pt-0">
           <button
             onClick={handleAddReview}
-            className={`flex justify-center rounded-lg hover:bg-black text-gray-200 font-bold w-full py-1 font-economica ${isLoading? "bg-gray-800": "bg-gray-900"}`}
+            disabled={isLoading}
+            className={`flex justify-center rounded-lg text-gray-200 font-bold w-full py-1 font-economica ${isLoading? "bg-gray-800": "bg-gray-900 hover:bg-black"}`}
           >
             {isLoading? <div className="flex items-center gap-3"><Spinner className="h-4 w-4" />Loading</div> : "Submit" }
           </button>
