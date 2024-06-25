@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 
 export default function Hero() {
+  const token = useRouteLoaderData("root") as string | null;
   const navigate = useNavigate();
   return (
     <div className="w-full h-screen bg-gray-300 border-2 flex flex-col items-center justify-center">
@@ -14,14 +15,12 @@ export default function Hero() {
         products to ensure that our clients receive the best possible service
         and results.
       </p>
-      <div>
-        <button
-          onClick={() => navigate("/reservation")}
-          className="font-economica mt-10 font-bold text-xl border-2 border-red-800 hover:text-gray-200 text-red-800 hover:bg-red-800 py-1 px-5 rounded-lg"
-        >
-          Book Now
-        </button>
-      </div>
+      <button
+        onClick={() => navigate("/reservation")}
+        className="font-economica mt-10 font-bold text-xl border-2 border-red-800 hover:text-gray-200 text-red-800 hover:bg-red-800 py-1 px-5 rounded-xl"
+      >
+        Book Now
+      </button>
     </div>
   );
 }

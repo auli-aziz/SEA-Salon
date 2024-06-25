@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Form, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
 import { Input, Spinner } from "@material-tailwind/react";
 import { Dayjs } from "dayjs";
@@ -10,14 +11,15 @@ export default function ReservationForm() {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [service, setService] = useState<string>("Haircuts and styling");
   const [date, setDate] = useState<Dayjs | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const token = useRouteLoaderData('root') as string | null;
   const navigate = useNavigate();
 
   const addReservation = async (e) => {
     e.preventDefault();
     setError(null);
-    if(!date) {
+    if (!date) {
       setError("All fields must be filled");
       return;
     }
@@ -26,38 +28,52 @@ export default function ReservationForm() {
     if (selectedHour < 9 || selectedHour > 21) {
       setError("Please select a time between 9:00 AM and 9:00 PM");
       return;
-    } 
-    if(selectedMinute !== 0) {
-      setError("Please boook a session that starts at the beginning of the hour");      
+    }
+    if (selectedMinute !== 0) {
+      setError(
+        "Please boook a session that starts at the beginning of the hour"
+      );
       return;
     }
-      try {
-        setIsLoading(true);
-        const response = await axios.post("/customer/addreservation", {
-          name: name,
-          phoneNumber: phoneNumber,
-          typeOfService: service,
-          dateAndTime: date,
-        });
-        setIsLoading(false);
-        if (response.status === 201) {
-          navigate('/');
-        } else {
-          console.log(response);
-        }
-      } catch (error) {
-        let errorMessage;
-        if (error instanceof Error) {
-          errorMessage = error.response.data;
-        }
-        setIsLoading(false);
-        setError(errorMessage);
-        console.log(errorMessage);
+    try {
+      setIsSubmitting(true);
+      const reservationData = {
+        name: name,
+        phoneNumber: phoneNumber,
+        typeOfService: service,
+        dateAndTime: date,
       }
+      const response = await axios.post("/customer/addreservation", reservationData, {
+        headers: {
+          "Content-Type": 'application/json',
+          "Authorization": "Bearer " + token
+        }
+      });
+      setIsSubmitting(false);
+      if (response.status === 201) {
+        navigate("/");
+      } else {
+        console.log(response);
+      }
+    } catch (error) {
+      let errorMessage;
+      if (error instanceof Error) {
+        errorMessage = error.response.data;
+      }
+      setIsSubmitting(false);
+      setError(errorMessage);
+      console.log(errorMessage);
+    }
   };
 
   return (
-    <form className="border-2 py-7 md:px-14 px-5 border-red-900 w-full flex flex-col rounded-lg shadow-xl">
+    <Form
+      method="POST"
+      className="border-2 py-7 md:px-12 px-5 border-red-900 w-full flex flex-col rounded-lg shadow-xl"
+    >
+      <h2 className="m-auto mb-10 font-economica font-bold text-3xl">
+        Make a Reservation
+      </h2>
       <div className="mb-3 flex md:flex-row flex-col w-full h-fit gap-3">
         <div className="font-montserrat font-medium text-sm flex-1">
           <label className="">Name</label>
@@ -110,16 +126,16 @@ export default function ReservationForm() {
         />
       </div>
       <button
-        disabled={isLoading}
-        className={`flex justify-center font-economica mt-10 font-bold text-xl border-2 border-red-800 text-red-800 py-1 px-5 rounded-lg ${
-          isLoading ? "" : " hover:bg-red-800 hover:text-gray-200"
+        disabled={isSubmitting}
+        className={`flex justify-center font-economica mt-10 font-bold text-xl border-2 border-red-800 text-red-800 py-1 px-5 rounded-xl ${
+          isSubmitting ? "" : " hover:bg-red-800 hover:text-gray-200"
         }`}
         onClick={addReservation}
       >
-        {isLoading ? (
+        {isSubmitting ? (
           <div className="margin-auto flex items-center gap-3">
             <Spinner className="h-4 w-4" />
-            Loading
+            Submitting...
           </div>
         ) : (
           "Submit"
@@ -130,6 +146,6 @@ export default function ReservationForm() {
           {error}
         </div>
       )}
-    </form>
+    </Form>
   );
 }

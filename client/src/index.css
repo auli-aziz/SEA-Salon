@@ -11,3 +11,14 @@
 .slick-slide > div {
   margin: 0 10px
 }
+
+::-webkit-scrollbar {
+  scrollbar-width: none; 
+  width: 0.3rem;
+  background-color: aliceblue;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: .5rem;
+}

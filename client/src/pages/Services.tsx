@@ -24,7 +24,7 @@ export default function Services() {
       <h3 className="font-bold font-economica text-3xl text-center mb-5">
         Our Signature Services
       </h3>
-      <div className="flex flex-wrap justify-around items-center">
+      <div className="flex flex-wrap justify-around items-center gap-5">
         {
           services.map((service) => (
             <ServiceCard key={service.name} name={service.name} image={service.image} />

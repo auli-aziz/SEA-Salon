@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
 
 const FlyoutLink = ({
@@ -11,17 +12,20 @@ const FlyoutLink = ({
   FlyoutContent: React.ElementType | null;
 }) => {
   const [open, setOpen] = useState(false);
-
   const showDropDown = open && FlyoutContent;
+  const navStyle = "relative pl-5 pb-2 md:py-0 md:hover:text-red-900 font-bold text-xl font-economica";
 
   return (
     <div className="relative h-fit w-fit flex items-center">
-      <a
-        href={href}
-        className="relative pl-5 pb-2 md:py-0 text-gray-200 md:text-gray-900 hover:text-red-500 font-bold text-xl font-economica"
+      <NavLink
+        to={href}
+        className={({isActive}) => (
+          isActive? `${navStyle} + text-red-200 md:text-red-900` : `${navStyle} + text-gray-200 md:text-gray-900`
+        )}
+        end
       >
         {children}
-      </a>
+      </NavLink>
       {FlyoutContent && (
         <FiChevronDown
           className={`text-md text-neutral-200 md:text-neutral-950 transition-tranform hidden md:block ${

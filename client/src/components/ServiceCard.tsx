@@ -1,6 +1,6 @@
 export default function ServiceCard({ name, image }: { name: string, image: string}) {
   return (
-    <div className="w-fit h-fit m-5 rounded-lg hover:scale-105 relative">
+    <div className="w-fit h-fit rounded-lg hover:scale-105 relative">
       <img
         src={image}
         alt={name}

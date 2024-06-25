@@ -1,33 +1,91 @@
-import { Route, Routes } from "react-router-dom";
-import NavBar from "./components/NavBar.tsx";
-import Footer from "./components/Footer.tsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import RootLayout from "./pages/RootLayout.tsx";
 import Home from "./pages/Home.tsx";
+import Error from "./pages/Error.tsx";
 import Services from "./pages/Services.tsx";
-import { useState } from "react";
 import Reservation from "./pages/Reservation.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import { loader as reviewLoader } from "./components/ReviewCarousel.tsx";
+import Authentication, {
+  action as authAction,
+} from "./pages/Authentication.tsx";
+import { tokenLoader } from "./util/auth.tsx";
+import { action as logoutAction } from "./pages/Logout.tsx";
+import AdminDashboard, { action as addServiceAction } from "./pages/Admin.tsx";
+import CustomerDashboard, {
+  loader as customerLoader,
+} from "./pages/Customer.tsx";
+import AdminLayout from "./pages/AdminLayout.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <Error />,
+    id: "root",
+    loader: tokenLoader,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+        loader: reviewLoader,
+      },
+      {
+        path: "dashboard",
+        element: <ProtectedRoute />,
+        id: "customer-dashboard",
+        loader: customerLoader,
+        children: [
+          {
+            index: true,
+            element: <CustomerDashboard />,
+          },
+        ],
+      },
+      {
+        path: "reservation",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "",
+            element: <Reservation />,
+          },
+        ],
+      },
+      {
+        path: "services",
+        element: <Services />,
+      },
+      {
+        path: "auth",
+        element: <Authentication />,
+        action: authAction,
+      },
+      {
+        path: "logout",
+        action: logoutAction,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <AdminLayout />,
+        path: "",
+        children: [
+          {
+            index: true,
+            element: <AdminDashboard />,
+            action: addServiceAction
+          },
+        ],
+      },
+    ],
+  },
+]);
 
 export default function App() {
-  const [showNav, setShowNav] = useState(false);
-
-  const handleNavbar = () => {
-    if (window.scrollY >= 300) {
-      setShowNav(true);
-    } else {
-      setShowNav(false);
-    }
-  }
-
-  window.addEventListener("scroll", handleNavbar);
-
-  return (
-    <div className="min-h-screen h-fit w-full bg-neutral-200">
-      <NavBar isFixed={showNav} />
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/services" element={<Services />} />
-        <Route path="/reservation" element={<Reservation />} />
-      </Routes>
-      <Footer />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }

@@ -8,31 +8,43 @@ import {
   Textarea,
   Input,
   Rating,
-  Spinner
+  Spinner,
 } from "@material-tailwind/react";
+import { useRouteLoaderData } from "react-router-dom";
 
-export default function ReviewModal({ open, handleOpen }: { open: boolean, handleOpen: () => void }) {
+export default function ReviewModal({
+  open,
+  handleOpen,
+}: {
+  open: boolean;
+  handleOpen: () => void;
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [rated, setRated] = useState(0);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  const token = useRouteLoaderData('root');
+  
   const handleAddReview = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.post('/customer/addreview',
-        {
-          name: name,
-          comment: comment,
-          rating: rated
+      const response = await axios.post("/customer/addreview", {
+        name: name,
+        comment: comment,
+        rating: rated,
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
         }
-      );
+      });
       setIsLoading(false);
-      if(response.status === 201) {
-        handleOpen()
+      if (response.status === 201) {
+        handleOpen();
       } else {
         console.log(response);
       }
-    } catch(error) {
+    } catch (error) {
       let errorMessage;
       if (error instanceof Error) {
         errorMessage = error.response.data;
@@ -40,7 +52,7 @@ export default function ReviewModal({ open, handleOpen }: { open: boolean, handl
       setIsLoading(false);
       console.log(errorMessage);
     }
-  }
+  };
 
   return (
     <Dialog
@@ -56,8 +68,19 @@ export default function ReviewModal({ open, handleOpen }: { open: boolean, handl
               Rate Us
             </h3>
           </div>
-          <Input label="Name" value={name} onChange={(event) => setName(event.target.value)} color={"red"} size="lg" />
-          <Textarea label="Comment" value={comment} onChange={(event) => setComment(event.target.value)} color={"red"} />
+          <Input
+            label="Name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            color={"red"}
+            size="lg"
+          />
+          <Textarea
+            label="Comment"
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
+            color={"red"}
+          />
           <Rating
             value={rated}
             onChange={(value) => setRated(value)}
@@ -68,9 +91,18 @@ export default function ReviewModal({ open, handleOpen }: { open: boolean, handl
           <button
             onClick={handleAddReview}
             disabled={isLoading}
-            className={`flex justify-center rounded-lg text-gray-200 font-bold w-full py-1 font-economica ${isLoading? "bg-gray-800": "bg-gray-900 hover:bg-black"}`}
+            className={`flex justify-center rounded-lg text-gray-200 font-bold w-full py-1 font-economica ${
+              isLoading ? "bg-gray-800" : "bg-gray-900 hover:bg-black"
+            }`}
           >
-            {isLoading? <div className="flex items-center gap-3"><Spinner className="h-4 w-4" />Loading</div> : "Submit" }
+            {isLoading ? (
+              <div className="flex items-center gap-3">
+                <Spinner className="h-4 w-4" />
+                Submitting...
+              </div>
+            ) : (
+              "Submit"
+            )}
           </button>
         </CardFooter>
       </Card>
