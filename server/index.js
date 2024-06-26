@@ -20,9 +20,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(authRoutes);
 app.use("/administrator", adminRoutes);
 app.use("/customer", customerRoutes);
+app.use(authRoutes);
 
 connectDatabase();
 app.listen(PORT, () => {

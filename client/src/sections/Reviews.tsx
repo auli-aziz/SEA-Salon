@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import ReviewModal from "./forms/ReviewModal";
-import ReviewCarousel from "./ReviewCarousel";
+import ReviewModal from "../components/forms/ReviewModal";
+import ReviewCarousel from "../components/ReviewCarousel";
 import { useRouteLoaderData } from "react-router-dom";
 
 export default function Reviews() {

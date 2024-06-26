@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { useActionData, useNavigation } from "react-router-dom";
 import { Form } from "react-router-dom";
+import BlackButton from "../BlackButton";
 
 export default function ServiceModal({
   open,
@@ -24,7 +25,7 @@ export default function ServiceModal({
   useEffect(() => {
     if (data && data.status === 201 && isSubmitted) {
       handleOpen();
-      setIsSubmitted(false)
+      setIsSubmitted(false);
     }
   }, [data, isSubmitted, handleOpen]);
 
@@ -68,27 +69,12 @@ export default function ServiceModal({
                   required
                   className="h-10 max-w-64 p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md"
                 />
-                <p className="m-auto font-semibold text-black">Hours</p>
+                <p className="m-auto font-semibold text-black">Minutes</p>
               </div>
             </div>
           </CardBody>
           <CardFooter className="pt-0">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`flex justify-center rounded-lg text-gray-200 font-bold w-full py-1 font-economica ${
-                isSubmitting ? "bg-gray-800" : "bg-gray-900 hover:bg-black"
-              }`}
-            >
-              {isSubmitting ? (
-                <div className="flex items-center gap-3">
-                  <Spinner className="h-4 w-4" />
-                  Submitting...
-                </div>
-              ) : (
-                "Add"
-              )}
-            </button>
+            <BlackButton isSubmitting={isSubmitting} />
           </CardFooter>
         </Form>
       </Card>

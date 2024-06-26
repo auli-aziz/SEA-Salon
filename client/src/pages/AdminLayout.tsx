@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import LogoutButton from "../components/LogoutButton";
-import AdminSidebar from "../components/AdminSidebar";
+import AdminSidebar from "../sections/AdminSidebar";
 
 export default function AdminLayout() {
   const [open, setOpen] = useState<boolean>(false);
@@ -12,11 +12,13 @@ export default function AdminLayout() {
       <div
         className={`w-full h-fit px-5 md:px-16 flex items-center justify-between py-5 bg-gray-100 z-20 shadow-lg`}
       >
-        <h3 className="font-economica text-2xl md:text-3xl font-bold text-red-800">
-          Admin Dashboard
-        </h3>
+        <Link to={"/admin"}>
+          <h3 className="font-economica text-2xl md:text-3xl font-bold text-red-800">
+            Admin Dashboard
+          </h3>
+        </Link>
         <nav className="ml-auto">
-          <ul className="font-economica font-bold text-xl">
+          <ul className="font-economica font-bold text-md md:text-xl">
             <li>
               <button onClick={openDrawer} className="hover:text-red-900">
                 Menu
@@ -24,7 +26,7 @@ export default function AdminLayout() {
             </li>
           </ul>
         </nav>
-        <LogoutButton />
+        <LogoutButton isMobile={false} />
       </div>
       <Outlet />
       <AdminSidebar open={open} closeDrawer={closeDrawer} />

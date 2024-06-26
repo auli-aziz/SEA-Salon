@@ -3,7 +3,7 @@ import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { FiAlignJustify, FiX } from "react-icons/fi";
 import ServicesContent from "../components/ServicesContent";
 import FlyoutLink from "../components/FlyoutLink";
-import LogoutButton from "./LogoutButton";
+import LogoutButton from "../components/LogoutButton";
 
 export default function NavBar({ isFixed }: { isFixed: boolean }) {
   const token = useRouteLoaderData("root") as string | null;
@@ -34,7 +34,7 @@ export default function NavBar({ isFixed }: { isFixed: boolean }) {
           </FlyoutLink>
         )}
         <FlyoutLink href="/services" FlyoutContent={ServicesContent}>
-          Services
+          About Us
         </FlyoutLink>
         <a
           href="/#contacts"
@@ -50,7 +50,7 @@ export default function NavBar({ isFixed }: { isFixed: boolean }) {
             Log In
           </button>
         ) : (
-          <LogoutButton />
+          <LogoutButton isMobile={true} />
         )}
       </nav>
       <div

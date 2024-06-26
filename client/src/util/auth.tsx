@@ -24,5 +24,8 @@ export function getAuthToken(): string | null {
 
 export function tokenLoader(): string | null {
   const token = getAuthToken();
+  if(token === "EXPIRED") {
+    return null;
+  }
   return token;
 }

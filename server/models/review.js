@@ -13,6 +13,6 @@ const ReviewSchema = mongoose.Schema({
     type: Number,
     required: true
   }
-});
+}, { timestamp: true });
 
 module.exports = mongoose.model("Review", ReviewSchema);

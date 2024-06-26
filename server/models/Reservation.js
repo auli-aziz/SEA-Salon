@@ -10,9 +10,12 @@ const ReservationSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  branch: {
+    type: String,
+    required: true
+  },
   typeOfService: {
     type: String,
-    enum: ['Haircuts and styling', 'Manicure and pedicure', 'Facial treatments'],
     required: true
   },
   dateAndTime: {

@@ -10,7 +10,7 @@ const authMiddleware = (allowedRole) => (req, res, next) => {
   const authToken = authorization.split(' ')[1];
   try {
     const decoded = validateJSONToken(authToken);
-    if (allowedRole !== decoded.role) {
+    if (allowedRole !== "any" && allowedRole !== decoded.role) {
       return res.status(403).send('Access denied');
     }
 

@@ -74,3 +74,18 @@ exports.login = async (req, res) => {
   const token = createJSONToken(user._id, user.role);
   res.json({ token: token, role: user.role });
 };
+
+exports.getProfile = async (req, res) => {
+  const id = req.user.id;
+  try {
+    const user = await User.findOne({ _id: id });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found.", payload: user });
+    }
+    return res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};

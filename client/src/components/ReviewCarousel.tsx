@@ -6,13 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Rating } from "@material-tailwind/react";
-
-interface Review {
-  _id: string;
-  name: string;
-  comment: string;
-  rating: number;
-}
+import { Review } from "../util/interfaces";
 
 export default function ReviewCarousel({
   showDots,

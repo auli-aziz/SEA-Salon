@@ -3,7 +3,9 @@ import RootLayout from "./pages/RootLayout.tsx";
 import Home from "./pages/Home.tsx";
 import Error from "./pages/Error.tsx";
 import Services from "./pages/Services.tsx";
-import Reservation from "./pages/Reservation.tsx";
+import Reservation, {
+  loader as reservationFormLoader,
+} from "./pages/Reservation.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import { loader as reviewLoader } from "./components/ReviewCarousel.tsx";
 import Authentication, {
@@ -11,11 +13,17 @@ import Authentication, {
 } from "./pages/Authentication.tsx";
 import { tokenLoader } from "./util/auth.tsx";
 import { action as logoutAction } from "./pages/Logout.tsx";
-import AdminDashboard, { action as addServiceAction } from "./pages/Admin.tsx";
+import AdminDashboard, {
+  action as addServiceAction,
+  loader as dashboardLoader,
+} from "./pages/Admin.tsx";
 import CustomerDashboard, {
   loader as customerLoader,
 } from "./pages/Customer.tsx";
 import AdminLayout from "./pages/AdminLayout.tsx";
+import AdminSettings from "./pages/AdminSettings.tsx";
+import { loader as adminSettingsLoader } from "./pages/AdminSettings.tsx";
+import Branches, { loader as branchLoader } from "./pages/Branches.tsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +57,7 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Reservation />,
+            loader: reservationFormLoader
           },
         ],
       },
@@ -78,7 +87,18 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <AdminDashboard />,
-            action: addServiceAction
+            action: addServiceAction,
+            loader: dashboardLoader,
+          },
+          {
+            path: "settings",
+            element: <AdminSettings />,
+            loader: adminSettingsLoader,
+          },
+          {
+            path: "branches",
+            element: <Branches />,
+            loader: branchLoader,
           },
         ],
       },
