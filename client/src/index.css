@@ -22,3 +22,19 @@
   background-color: grey;
   border-radius: .5rem;
 }
+
+.Toastify__toast {
+  color: white;
+  font-size: small;
+  font-family: Montserrat;
+  font-weight: 600;
+  background: #b71c1c;
+}
+
+.Toastify__progress-bar {
+  background: white;
+}
+
+.Toastify__toast-icon > svg {
+  fill: white;
+}

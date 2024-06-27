@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { FiAlignJustify, FiX } from "react-icons/fi";
-import ServicesContent from "../components/ServicesContent";
+import ServicesContent from "../components/AboutContent";
 import FlyoutLink from "../components/FlyoutLink";
 import LogoutButton from "../components/LogoutButton";
 
@@ -33,7 +33,7 @@ export default function NavBar({ isFixed }: { isFixed: boolean }) {
             Dashboard
           </FlyoutLink>
         )}
-        <FlyoutLink href="/services" FlyoutContent={ServicesContent}>
+        <FlyoutLink href="/aboutus" FlyoutContent={ServicesContent}>
           About Us
         </FlyoutLink>
         <a

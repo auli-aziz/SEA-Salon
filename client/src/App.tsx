@@ -1,12 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Slide, ToastContainer } from 'react-toastify';    
+import "react-toastify/dist/ReactToastify.css";
+
 import RootLayout from "./pages/RootLayout.tsx";
+import AdminLayout from "./pages/AdminLayout.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import Home from "./pages/Home.tsx";
 import Error from "./pages/Error.tsx";
 import Services from "./pages/Services.tsx";
 import Reservation, {
   loader as reservationFormLoader,
 } from "./pages/Reservation.tsx";
-import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import { loader as reviewLoader } from "./components/ReviewCarousel.tsx";
 import Authentication, {
   action as authAction,
@@ -20,10 +24,11 @@ import AdminDashboard, {
 import CustomerDashboard, {
   loader as customerLoader,
 } from "./pages/Customer.tsx";
-import AdminLayout from "./pages/AdminLayout.tsx";
 import AdminSettings from "./pages/AdminSettings.tsx";
 import { loader as adminSettingsLoader } from "./pages/AdminSettings.tsx";
 import Branches, { loader as branchLoader } from "./pages/Branches.tsx";
+import About from "./pages/About.tsx";
+import SearchBranches from "./pages/SearchBranches.tsx";
 
 const router = createBrowserRouter([
   {
@@ -57,13 +62,21 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Reservation />,
-            loader: reservationFormLoader
+            loader: reservationFormLoader,
           },
         ],
       },
       {
+        path: "aboutus",
+        element: <About />
+      },
+      {
         path: "services",
         element: <Services />,
+      },
+      {
+        path: "branches",
+        element: <SearchBranches />
       },
       {
         path: "auth",
@@ -107,5 +120,10 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer transition={Slide} position="top-center" autoClose={1800} limit={2} closeButton={false} />
+    </>
+  );
 }

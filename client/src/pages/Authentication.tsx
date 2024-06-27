@@ -1,6 +1,7 @@
 import { redirect } from "react-router-dom";
 import AuthForm from "../components/forms/AuthForm";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Authentication() {
   return (
@@ -55,6 +56,10 @@ export async function action({ request }: { request: Request }) {
     const expiration = new Date();
     expiration.setHours(expiration.getHours() + 1);
     localStorage.setItem("expiration", expiration.toISOString());
+
+    if(mode === "signup") {
+      toast.success("Signup Success");
+    }
 
     if (role === "admin") {
       return redirect("/admin");

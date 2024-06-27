@@ -5,8 +5,7 @@ import { loadBranches } from "../util/admin";
 import { Branch, Service } from "../util/interfaces.tsx";
 
 export default function Reservation() {
-  const { services, branches } = useLoaderData() as {
-    services: Service[];
+  const { branches } = useLoaderData() as {
     branches: Branch[];
   };
 
@@ -18,9 +17,7 @@ export default function Reservation() {
         >
           <Await resolve={branches}>
             {(resolvedBranches) => (
-              <ReservationForm
-                branches={resolvedBranches}
-              />
+              <ReservationForm branches={resolvedBranches} />
             )}
           </Await>
         </Suspense>

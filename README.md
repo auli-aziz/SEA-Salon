@@ -15,25 +15,9 @@ This website consists features that fulfills the Compfest SEA assignment for eve
 | 3 | • Reservation form <br> • Database integration |
 | 4 | • Authentication system <br> • Customer and admin role <br> • Customer dashboard to view reservation history <br> • Member only reservations |
 | 5 | • Admin dashboard <br> • Branch and service creation <br> • Advanced reservation system with branch & services |
-| <b>Additional</b> | • Reviews can only be added by cutomers <br> • Toast notification for event updates <br> • Customers can contact by email through a form <br> • About us page, brances page, services page <br> • Reset password in user profile <br> • Automatic logout within 1 hour of login <br> • Reservations page in admin dashboard <br> • Admins are able to see business stats |
+| <b>Bonus</b> | • Reviews can only be added by cutomers <br> • Toast notification for event updates <br> • Customers can contact by email through a form <br> • About us page, brances page, services page <br> • Reset password in user profile <br> • Automatic logout within 1 hour of login <br> • Reservations page in admin dashboard <br> • Admins are able to see business stats |
 
 The website leverages MongoDB to store the data and mongoose as the ODM.
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
 ## Technologies used
 
@@ -84,7 +68,7 @@ export default {
 
 ### Backend
 
-- Ensure You’re on the right folder
+- Open a new terminal and ensure You’re on the right folder
 
   ```
   cd server

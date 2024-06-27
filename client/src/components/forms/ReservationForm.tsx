@@ -6,6 +6,8 @@ import dayjs, { Dayjs } from "dayjs";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useNavigate } from "react-router-dom";
 import { Branch, Service } from "../../util/interfaces";
+import { toast } from "react-toastify";
+
 
 export default function ReservationForm({ branches }: { branches: Branch[] }) {
   const [name, setName] = useState<string>("");
@@ -73,6 +75,7 @@ export default function ReservationForm({ branches }: { branches: Branch[] }) {
       setIsSubmitting(false);
       if (response.status === 201) {
         navigate("/dashboard");
+        toast.success("Reservation Added Successfully");
       } else {
         console.log(response);
       }

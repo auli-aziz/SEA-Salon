@@ -26,7 +26,7 @@ export default function CustomerDashboard() {
   };
 
   return (
-    <div className="w-full h-fit py-10 lg:px-20 px-5 flex flex-wrap justify-between gap-5">
+    <div className="w-full h-fit py-10 lg:px-20 px-5 flex flex-wrap justify-center lg:justify-between gap-5">
       <Suspense fallback={<p className="font-montserrat m-auto">Loading...</p>}>
         <Await resolve={profile}>
           {(loadedProfile) => <ProfileCard profile={loadedProfile} />}
