@@ -1,23 +1,32 @@
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import wallpaper from "../images/wallpaper.jpg";
 
 export default function Hero() {
-  const token = useRouteLoaderData("root") as string | null;
   const navigate = useNavigate();
+
   return (
-    <div className="w-full h-screen bg-gray-300 border-2 flex flex-col items-center justify-center">
-      <h3 className="font-heading md:text-6xl text-5xl mx-24 text-center">
+    <div
+      className="relative w-full h-fit py-52 bg-gray-300 border-2 flex flex-col items-center justify-center"
+      style={{
+        backgroundImage: `url(${wallpaper})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-65"></div>
+      <h3 className="font-heading md:text-6xl text-5xl mx-24 text-center text-white z-10">
         “Beauty and Elegance Redefined”
       </h3>
-      <p className="font-montserrat mt-10 lg:mx-72 mx-20 text-center text-sm md:text-base">
+      <p className="font-montserrat mt-10 lg:mx-72 mx-20 text-center text-sm md:text-base text-white z-10">
         We are dedicated to delivering the highest level of professionalism,
         expertise, and innovation in the salon industry. Our highly skilled team
-        of stylists, stay up-to-date with the latest trends, techniques, and
+        of stylists stays up-to-date with the latest trends, techniques, and
         products to ensure that our clients receive the best possible service
         and results.
       </p>
       <button
         onClick={() => navigate("/reservation")}
-        className="font-economica mt-10 font-bold text-xl border-2 border-red-800 hover:text-gray-200 text-red-800 hover:bg-red-800 py-1 px-5 rounded-xl"
+        className="font-economica mt-10 font-bold text-xl text-gray-200 bg-red-800 py-1 px-5 rounded-xl z-10"
       >
         Book Now
       </button>

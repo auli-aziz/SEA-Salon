@@ -69,7 +69,7 @@ export default function AdminDashboard() {
               <StatCard
                 title="Average Rating"
                 bgColor="bg-yellow-200"
-                num={calculateAverageRating(loadedReviews)} // Assuming you have a function to calculate the average rating
+                num={calculateAverageRating(loadedReviews)}
               />
               <StatCard
                 title="Reviews"

@@ -36,11 +36,11 @@ export default function Reviews() {
     <div className="w-full h-fit py-5 px-7 relative flex justify-center">
       <div className="h-fit w-full py-10 px-14 bg-red-900 min-h-52 rounded-3xl flex flex-wrap items-center justify-around">
         <div className="h-fit lg:mr-9 lg:w-52 mb-7 text-center">
-          <h5 className="text-gray-200 font-medium font-montserrat text-xl mb-3">
+          <h5 className="text-gray-200 font-light font-montserrat text-xl mb-3">
             Reviews
           </h5>
-          <p className="text-gray-200 font-semibold font-montserrat text-3xl">
-            What They Say About Us
+          <p className="text-gray-200 font-semibold font-heading text-3xl">
+            What They Say About Us...
           </p>
           {token && (
             <button

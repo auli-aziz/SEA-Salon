@@ -13,15 +13,15 @@ export default function NavBar({ isFixed }: { isFixed: boolean }) {
 
   return (
     <div
-      className={`w-full h-fit px-16 flex items-center justify-between py-5 bg-gray-100 z-20 shadow-lg ${
-        isFixed ? "fixed top-0" : "static"
+      className={`w-full h-fit px-8 flex items-center justify-between py-5 z-20 ${
+        isFixed ? "bg-white fixed top-0 shadow-lg" : "absolute bg-transparent"
       }`}
     >
       <h3 className="font-heading text-4xl md:text-5xl font-bold text-red-800">
         <Link to="/">SEA Salon</Link>
       </h3>
       <nav
-        className={`h-fit md:h-full w-[96%] md:w-fit md:flex items-center absolute md:static md:bg-gray-100 bg-red-900 md:py-0 py-5 md:shadow-none shadow-2xl z-20 ${
+        className={`h-fit md:h-full w-[96%] md:w-fit md:flex items-center absolute md:static md:bg-white md:border-[5px] md:border-white md:rounded-xl bg-red-900 md:py-0 py-5 md:shadow-none shadow-2xl z-20 ${
           isOpen ? "top-[75px] left-2" : "top-[-250px] left-2"
         }`}
       >
@@ -58,9 +58,9 @@ export default function NavBar({ isFixed }: { isFixed: boolean }) {
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {isOpen ? (
-          <FiX className="text-gray-800" />
+          <FiX className={isFixed ? `text-gray-900`: "text-red-800"} />
         ) : (
-          <FiAlignJustify className="text-gray-800" />
+          <FiAlignJustify className={isFixed ? `text-gray-900`: "text-red-800"} />
         )}
       </div>
     </div>
