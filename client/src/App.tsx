@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Slide, ToastContainer } from 'react-toastify';    
+import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import RootLayout from "./pages/RootLayout.tsx";
@@ -7,7 +7,7 @@ import AdminLayout from "./pages/AdminLayout.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import Home from "./pages/Home.tsx";
 import Error from "./pages/Error.tsx";
-import Services, { loader as serviceLoader} from "./pages/Services.tsx";
+import Services, { loader as serviceLoader } from "./pages/Services.tsx";
 import Reservation, {
   loader as reservationFormLoader,
 } from "./pages/Reservation.tsx";
@@ -29,6 +29,7 @@ import { loader as adminSettingsLoader } from "./pages/AdminSettings.tsx";
 import AddBranches, { loader as branchLoader } from "./pages/AddBranch.tsx";
 import About from "./pages/About.tsx";
 import Branches, { loader as branchesLoader } from "./pages/Branches.tsx";
+import { action as resetPasswordAction } from "./pages/ResetPassword.tsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <CustomerDashboard />,
+            action: resetPasswordAction,
           },
         ],
       },
@@ -68,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: "aboutus",
-        element: <About />
+        element: <About />,
       },
       {
         path: "services",
@@ -78,7 +80,7 @@ const router = createBrowserRouter([
       {
         path: "branches",
         element: <Branches />,
-        loader: branchesLoader
+        loader: branchesLoader,
       },
       {
         path: "auth",
@@ -109,6 +111,7 @@ const router = createBrowserRouter([
             path: "settings",
             element: <AdminSettings />,
             loader: adminSettingsLoader,
+            action: resetPasswordAction,
           },
           {
             path: "branches",
@@ -125,7 +128,13 @@ export default function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <ToastContainer transition={Slide} position="top-center" autoClose={1800} limit={2} closeButton={false} />
+      <ToastContainer
+        transition={Slide}
+        position="top-center"
+        autoClose={1800}
+        limit={2}
+        closeButton={false}
+      />
     </>
   );
 }

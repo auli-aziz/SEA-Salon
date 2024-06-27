@@ -61,6 +61,11 @@ The website leverages MongoDB to store the data and mongoose as the ODM.
    npm install
   ```
 
+- Create an .env file in your project root folder and add your variables.
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/e7e89bee-b442-4846-abb6-40fb90622265)
+
+- Insert Variables
+
 - To test the installation result run
   ```
   npm run dev

@@ -58,7 +58,7 @@ export default function ReviewCarousel({
   );
 }
 
-async function loadReviews() {
+export async function loadReviews() {
   try {
     const response = await axios.get("/customer/reviews");
     return response.data;

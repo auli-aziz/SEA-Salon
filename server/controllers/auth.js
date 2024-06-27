@@ -89,3 +89,50 @@ exports.getProfile = async (req, res) => {
     res.status(500).json(err.message);
   }
 };
+
+exports.resetPassword = async (req, res, next) => {
+  const id = req.user.id;
+  const { oldPassword, newPassword } = req.body;
+  let errors = {};
+
+  try {
+    if (!oldPassword || !newPassword) {
+      throw Error("Email, old password, and new password must be provided.");
+    }
+
+    if (!validator.isStrongPassword(newPassword)) {
+      errors.password = "Invalid password. Password too weak.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return res.status(422).json({
+        message: "Password reset failed due to validation errors: ",
+        errors,
+      });
+    }
+
+    const user = await User.findOne({ _id: id });
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+        errors: { email: "No user found with this email." },
+      });
+    }
+
+    const pwIsValid = await isValidPassword(oldPassword, user.password);
+    if (!pwIsValid) {
+      return res.status(422).json({
+        message: "Invalid old password.",
+        errors: { oldPassword: "The old password entered is incorrect." },
+      });
+    }
+
+    const hashedPass = await hashPassword(newPassword);
+    user.password = hashedPass;
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successfully." });
+  } catch (error) {
+    next(error);
+  }
+};

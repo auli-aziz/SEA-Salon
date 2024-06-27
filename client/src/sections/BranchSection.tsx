@@ -13,8 +13,6 @@ export default function BranchSection({
 }) {
   const [searchBranch, setSearchBranch] = useState("");
   const [result, setResult] = useState<Branch[]>(branches);
-  console.log(branches);
-
 
   useEffect(() => {
     const filteredData = Object.values(branches).filter((branch) =>
@@ -22,6 +20,7 @@ export default function BranchSection({
     );
     setResult(filteredData);
   }, [searchBranch]);
+  
   return (
     <div className="relative">
       <div className="px-1">
@@ -38,12 +37,12 @@ export default function BranchSection({
       <Border>
         {result &&
           Object.values(result).map((b) => (
-            <ListItem key={b._id}>
+            <ListItem>
               <div>
                 <p className="font-bold text-lg m-1">{b.name}</p>
                 <div className="w-fit flex flex-wrap gap-1 my-1 py-1 bg-gray-100">
                   {Object.values(b.services).map((s) => (
-                    <div className="w-fit px-3 bg-red-100 rounded-md text-center font-medium text-xs">
+                    <div key={s.name} className="w-fit px-3 bg-red-100 rounded-md text-center font-medium text-xs">
                       {s.name}
                     </div>
                   ))}

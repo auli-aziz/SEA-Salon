@@ -9,7 +9,8 @@ import { loadBranches, loadServices } from "../util/admin";
 import { FiPlusCircle } from "react-icons/fi";
 import ListItem from "../components/ListItem";
 import BranchSection from "../sections/BranchSection";
-import { Service, Branch } from "../util/interfaces";
+import { Service, Branch, Review } from "../util/interfaces";
+import { loadReviews } from "../components/ReviewCarousel.tsx";
 
 export const formatTime = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", {
@@ -22,21 +23,64 @@ export const formatTime = (date: Date) => {
 
 export default function AdminDashboard() {
   const [open, setOpen] = useState<boolean>(false);
-  const { services, branches } = useLoaderData() as {
+  const { services, branches, reviews } = useLoaderData() as {
     services: Service[];
     branches: Branch[];
+    reviews: Review[];
   };
   const handleOpen = () => setOpen((curr) => !curr);
+
+  const calculateAverageRating = (reviews: Review[]) => {
+    if (reviews.length === 0) return 0;
+
+    let sum: number = 0;
+    reviews.forEach((r) => {
+      sum += r.rating;
+    });
+
+    const average = sum / reviews.length;
+    return Number(average.toFixed(2));
+  };
 
   return (
     <div className="w-full pt-7 px-5 md:px-12">
       <div className="w-fit m-auto border-2 flex flex-wrap justify-center gap-5">
-        <StatCard title="Reservations" bgColor="bg-blue-300" num={12} />
-        <StatCard title="Reviews" bgColor="bg-red-300" num={5} />
-        <StatCard title="Average Rating" bgColor="bg-orange-100" num={100} />
-        <StatCard title="Users" bgColor="bg-purple-300" num={234} />
+        <Await resolve={services}>
+          {(loadedServices) => (
+            <StatCard
+              title="Services"
+              bgColor="bg-red-300"
+              num={loadedServices.length}
+            />
+          )}
+        </Await>
+        <Await resolve={services}>
+          {(loadedBranches) => (
+            <StatCard
+              title="Branches"
+              bgColor="bg-blue-200"
+              num={loadedBranches.length}
+            />
+          )}
+        </Await>
+        <Await resolve={reviews}>
+          {(loadedReviews) => (
+            <>
+              <StatCard
+                title="Average Rating"
+                bgColor="bg-yellow-200"
+                num={calculateAverageRating(loadedReviews)} // Assuming you have a function to calculate the average rating
+              />
+              <StatCard
+                title="Reviews"
+                bgColor="bg-purple-200"
+                num={loadedReviews.length}
+              />
+            </>
+          )}
+        </Await>
       </div>
-      <div className="h-fit mt-7 p-10 rounded-t-lg bg-white shadow-xl flex flex-wrap gap-5 justify-between">
+      <div className="h-fit mt-7 p-10 rounded-t-lg bg-white shadow-xl flex flex-wrap gap-5 lg:justify-between justify-center">
         <div className="md:max-w-[300px] w-full">
           <div className="flex justify-between items-center">
             <h4 className="font-economica font-bold text-2xl">Services</h4>
@@ -53,11 +97,13 @@ export default function AdminDashboard() {
                 {(loadedServices) =>
                   Object.values(loadedServices).map((s) => (
                     <ListItem key={s.name}>
-                      <p className="font-bold">{s.name}</p>
-                      <p className="mt-1 text-xs">
-                        <span className="font-medium">Duration:</span>{" "}
-                        {s.duration} Minute(s)
-                      </p>
+                      <div>
+                        <p className="font-bold">{s.name}</p>
+                        <p className="mt-1 text-xs">
+                          <span className="font-medium">Duration:</span>{" "}
+                          {s.duration} Minute(s)
+                        </p>
+                      </div>
                     </ListItem>
                   ))
                 }
@@ -91,6 +137,7 @@ export async function loader() {
   return defer({
     services: loadServices(),
     branches: loadBranches(),
+    reviews: await loadReviews(),
   });
 }
 
