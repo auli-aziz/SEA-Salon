@@ -19,6 +19,7 @@ export interface Service {
 }
 
 export interface Branch {
+  _id: string;
   name: string;
   services: Service
   location: string;

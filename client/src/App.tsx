@@ -7,7 +7,7 @@ import AdminLayout from "./pages/AdminLayout.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import Home from "./pages/Home.tsx";
 import Error from "./pages/Error.tsx";
-import Services from "./pages/Services.tsx";
+import Services, { loader as serviceLoader} from "./pages/Services.tsx";
 import Reservation, {
   loader as reservationFormLoader,
 } from "./pages/Reservation.tsx";
@@ -26,9 +26,9 @@ import CustomerDashboard, {
 } from "./pages/Customer.tsx";
 import AdminSettings from "./pages/AdminSettings.tsx";
 import { loader as adminSettingsLoader } from "./pages/AdminSettings.tsx";
-import Branches, { loader as branchLoader } from "./pages/Branches.tsx";
+import AddBranches, { loader as branchLoader } from "./pages/AddBranch.tsx";
 import About from "./pages/About.tsx";
-import SearchBranches from "./pages/SearchBranches.tsx";
+import Branches, { loader as branchesLoader } from "./pages/Branches.tsx";
 
 const router = createBrowserRouter([
   {
@@ -73,10 +73,12 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: <Services />,
+        loader: serviceLoader,
       },
       {
         path: "branches",
-        element: <SearchBranches />
+        element: <Branches />,
+        loader: branchesLoader
       },
       {
         path: "auth",
@@ -110,7 +112,7 @@ const router = createBrowserRouter([
           },
           {
             path: "branches",
-            element: <Branches />,
+            element: <AddBranches />,
             loader: branchLoader,
           },
         ],

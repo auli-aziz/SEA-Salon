@@ -1,11 +1,12 @@
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
     <div className="h-fit static w-full md:px-28 px-14 pb-12 pt-36 bg-red-900">
         <div className="h-fit w-full flex flex-col md:flex-row items-center md:justify-between">
           <h3 className="font-heading text-3xl md:text-4xl font-bold text-gray-100">
-            <a href="/">SEA Salon</a>
+            <Link to="/">SEA Salon</Link>
           </h3>
           <div className="h-fit w-fit flex justify-between md:mt-0 mt-2">
             <FaInstagram className="text-2xl text-gray-300 hover:text-gray-100 md:ml-5 mx-3" />

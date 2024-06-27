@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
 import { FiAlignJustify, FiX } from "react-icons/fi";
 import ServicesContent from "../components/AboutContent";
 import FlyoutLink from "../components/FlyoutLink";
@@ -14,11 +14,11 @@ export default function NavBar({ isFixed }: { isFixed: boolean }) {
   return (
     <div
       className={`w-full h-fit px-16 flex items-center justify-between py-5 bg-gray-100 z-20 shadow-lg ${
-        isFixed ? "fixed" : "static"
+        isFixed ? "fixed top-0" : "static"
       }`}
     >
       <h3 className="font-heading text-4xl md:text-5xl font-bold text-red-800">
-        <a href="/">SEA Salon</a>
+        <Link to="/">SEA Salon</Link>
       </h3>
       <nav
         className={`h-fit md:h-full w-[96%] md:w-fit md:flex items-center absolute md:static md:bg-gray-100 bg-red-900 md:py-0 py-5 md:shadow-none shadow-2xl z-20 ${

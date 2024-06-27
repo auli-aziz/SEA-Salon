@@ -76,7 +76,7 @@ export default function AdminDashboard() {
           >
             <Await resolve={branches}>
               {(loadedBranches) => (
-                <BranchSection branches={loadedBranches} />
+                <BranchSection branches={loadedBranches} searchable={false} />
               )}
             </Await>
           </Suspense>
