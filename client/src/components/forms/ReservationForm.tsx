@@ -62,8 +62,8 @@ export default function ReservationForm({ branches }: { branches: Branch[] }) {
       const reservationData = {
         name,
         phoneNumber,
-        branch: selectedBranch.name, // Use branch ID for the reservation
-        typeOfService: selectedService, // Use service ID for the reservation
+        branch: selectedBranch.name,
+        typeOfService: selectedService,
         dateAndTime: date,
       }
       const response = await axios.post("/customer/addreservation", reservationData, {
@@ -86,6 +86,8 @@ export default function ReservationForm({ branches }: { branches: Branch[] }) {
       }
       if(errorMessage === "read ECONNRESET") {
         errorMessage = "Please check your internet connection";
+      } else if(errorMessage === "Access denied") {
+        errorMessage = "Only customers can make reservations";
       }
       setIsSubmitting(false);
       setError(errorMessage);

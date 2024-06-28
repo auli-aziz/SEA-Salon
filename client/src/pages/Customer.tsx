@@ -6,7 +6,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import axios from "axios";
-import ProfileCard from "../components/ProfileCard";
+import ProfileCard from "../sections/ProfileCard";
 import ReservationsHistory from "../sections/ReservationsHistory";
 import { loadProfile } from "../util/admin";
 import DetailModal from "../components/DetailModal";
@@ -26,7 +26,7 @@ export default function CustomerDashboard() {
   };
 
   return (
-    <div className="w-full h-fit py-10 lg:px-20 px-5 flex flex-wrap justify-center lg:justify-between gap-5">
+    <div className="w-full h-fit pb-10 pt-32 lg:px-20 px-5 flex flex-wrap justify-center lg:justify-between gap-5">
       <Suspense fallback={<p className="font-montserrat m-auto">Loading...</p>}>
         <Await resolve={profile}>
           {(loadedProfile) => <ProfileCard profile={loadedProfile} />}
@@ -61,29 +61,29 @@ export default function CustomerDashboard() {
         >
           <table className="w-full mt-5 text-left font-montserrat text-sm text-gray-800">
             <tr className="h-7">
-              <td className="font-semibold w-52">Type of Service:</td>
+              <td className="font-semibold md:w-52 w-32">Type of Service:</td>
               <td className="font-regular">{detail?.typeOfService}</td>
             </tr>
             <tr className="h-7">
-              <td className="font-semibold w-52">Branch:</td>
+              <td className="font-semibold md:w-52 w-32">Branch:</td>
               <td className="font-regular">{detail?.branch}</td>
             </tr>
             <tr className="h-7">
-              <td className="font-semibold w-52">Customer Name:</td>
+              <td className="font-semibold md:w-52 w-32">Customer Name:</td>
               <td className="font-regular">{detail?.name}</td>
             </tr>
             <tr className="h-7">
-              <td className="font-semibold w-52">Phone Number:</td>
+              <td className="font-semibold md:w-52 w-32">Phone Number:</td>
               <td className="font-regular">{detail?.phoneNumber}</td>
             </tr>
             <tr className="h-7">
-              <td className="font-semibold w-52">Date & Time:</td>
+              <td className="font-semibold md:w-52 w-32">Date & Time:</td>
               <td className="font-regular">
                 {detail && formatDate(detail?.dateAndTime)}
               </td>
             </tr>
             <tr className="h-7">
-              <td className="font-semibold w-52">Booking Time:</td>
+              <td className="font-semibold md:w-52 w-32">Booking Time:</td>
               <td className="font-regular">
                 {detail && formatDate(detail?.updatedAt)}
               </td>

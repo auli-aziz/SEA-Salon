@@ -14,29 +14,11 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/customer/, '/customer'),
       },
-      '/login': {
+      '/authentication': {
         target: target,
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/login/, '/login'),
-      },
-      '/signup': {
-        target: target,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/signup/, '/signup'),
-      },
-      '/resetpassword': {
-        target: target,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/resetpassword/, '/resetpassword'),
-      },
-      '/profile': {
-        target: target,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/profile/, '/profile'),
+        rewrite: (path) => path.replace(/^\/authentication/, '/authentication'),
       },
       '/administrator': {
         target: target,

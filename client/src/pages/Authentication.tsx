@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 export default function Authentication() {
   return (
-    <div className="w-full px-10 h-[500px] pt-[160px] flex items-center justify-center relative">
+    <div className="w-full px-10 h-[580px] pt-[200px] flex items-center justify-center relative">
       <AuthForm />
     </div>
   );
@@ -33,7 +33,7 @@ export async function action({ request }: { request: Request }) {
       };
     }
 
-    const response = await axios.post(`/${mode}`, authData, {
+    const response = await axios.post(`/authentication/${mode}`, authData, {
       headers: {
         "Content-Type": "application/json",
       },

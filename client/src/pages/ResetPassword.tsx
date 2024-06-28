@@ -16,7 +16,7 @@ export async function action({ request }: { request: Request }) {
     }
 
     const response = await axios.post(
-      "/resetpassword",
+      "/authentication/resetpassword",
       {
         oldPassword: currentPass,
         newPassword: newPass,

@@ -1,24 +1,33 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "../sections/NavBar.tsx";
 import Footer from "../sections/Footer.tsx";
-import "react-toastify/dist/ReactToastify.css";
+import { NavbarContext } from "../contexts/navbar.tsx";
 
 export default function RootLayout() {
-  const [showNav, setShowNav] = useState(false);
+  const location = useLocation();
+  const path = location.pathname;
+  const [isFixed, setIsFixed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMobileNavButton = () => {
+    setIsOpen((curr) => !curr);
+  }
 
   const handleNavbar = () => {
     if (window.scrollY >= 260) {
-      setShowNav(true);
+      setIsFixed(true);
     } else {
-      setShowNav(false);
+      setIsFixed(false);
     }
   };
   window.addEventListener("scroll", handleNavbar);
 
   return (
     <div className="min-h-screen h-fit w-full bg-neutral-200">
-      <NavBar isFixed={showNav} />
+      <NavbarContext.Provider value={{path, isFixed, isOpen, handleMobileNavButton}}>
+        <NavBar />
+      </NavbarContext.Provider>
       <Outlet />
       <Footer />
     </div>

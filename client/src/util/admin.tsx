@@ -52,7 +52,7 @@ export async function loadProfile() {
   const token = getAuthToken();
   
   try {
-    const response = await axios.get("/profile", {
+    const response = await axios.get("/authentication/profile", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,

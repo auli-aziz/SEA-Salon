@@ -1,8 +1,5 @@
-import PasswordForm from "./forms/PasswordForm";
+import PasswordForm from "../components/forms/PasswordForm";
 import { Profile } from "../util/interfaces";
-import axios from "axios";
-import { getAuthToken } from "../util/auth";
-import { toast } from "react-toastify";
 
 export default function ProfileCard({ profile }: { profile: Profile }) {
   return (

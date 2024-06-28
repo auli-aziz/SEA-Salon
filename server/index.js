@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 
 app.use("/administrator", adminRoutes);
 app.use("/customer", customerRoutes);
-app.use(authRoutes);
+app.use("/authentication", authRoutes);
 
 connectDatabase();
 app.listen(PORT, () => {

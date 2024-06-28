@@ -1,4 +1,8 @@
-const { createJSONToken, isValidPassword, hashPassword } = require("../util/auth");
+const {
+  createJSONToken,
+  isValidPassword,
+  hashPassword,
+} = require("../util/auth");
 const User = require("../models/User");
 const validator = require("validator");
 
@@ -30,7 +34,7 @@ exports.signup = async (req, res, next) => {
       });
     }
 
-    const hashedPass = await hashPassword(data.password)
+    const hashedPass = await hashPassword(data.password);
 
     const createdUser = new User({
       fullName: data.fullName,
@@ -60,8 +64,8 @@ exports.login = async (req, res) => {
   try {
     user = await User.findOne({ email });
     const pwIsValid = await isValidPassword(password, user.password);
-    
-    if(!pwIsValid) {
+
+    if (!pwIsValid) {
       throw Error();
     }
   } catch (error) {
@@ -100,6 +104,12 @@ exports.resetPassword = async (req, res, next) => {
       throw Error("Email, old password, and new password must be provided.");
     }
 
+    if (oldPassword === newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Old and new password must be different" });
+    }
+
     if (!validator.isStrongPassword(newPassword)) {
       errors.password = "Invalid password. Password too weak.";
     }
@@ -122,7 +132,7 @@ exports.resetPassword = async (req, res, next) => {
     const pwIsValid = await isValidPassword(oldPassword, user.password);
     if (!pwIsValid) {
       return res.status(422).json({
-        message: "Invalid old password.",
+        message: "Invalid current password.",
         errors: { oldPassword: "The old password entered is incorrect." },
       });
     }

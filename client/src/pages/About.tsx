@@ -22,7 +22,7 @@ const services = [
 export default function About() {
   const navigate = useNavigate();
   return (
-    <div className="w-full h-fit px-20 my-10">
+    <div className="w-full h-fit px-20 mb-10 mt-32">
       <div className="flex flex-wrap justify-center gap-10">
         <Carousel className="min-w-60 max-w-96 h-96 rounded-lg relative">
           {Object.values(services).map((s) => (

@@ -3,7 +3,7 @@ import ContactForm from "../components/forms/ContactForm";
 
 export default function Contacts() {
   return (
-    <div className="h-fit w-full flex lg:flex-row flex-wrap scroll-mt-[180px]" id="contacts">
+    <div className="h-fit w-full flex lg:flex-row flex-wrap scroll-mt-[120px]" id="contacts">
       <div className="h-fit xl:w-[490px] w-full md:px-40 py-24 flex flex-col items-center">
         <h3 className="font-heading font-bold text-3xl sm:text-4xl mb-10 text-red-900">Contact Us!</h3>
         <div className="mt-5 font-montserrat flex items-center">

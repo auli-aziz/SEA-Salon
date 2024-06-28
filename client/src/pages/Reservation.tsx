@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { defer, useLoaderData, Await } from "react-router-dom";
 import ReservationForm from "../components/forms/ReservationForm";
 import { loadBranches } from "../util/admin";
-import { Branch, Service } from "../util/interfaces.tsx";
+import { Branch } from "../util/interfaces.tsx";
 
 export default function Reservation() {
   const { branches } = useLoaderData() as {
@@ -10,7 +10,7 @@ export default function Reservation() {
   };
 
   return (
-    <div className="flex items-center py-16 px-5 md:px-32 flex-col">
+    <div className="flex items-center pb-16 pt-32 px-5 md:px-32 flex-col">
       <div className="h-fit w-full relative">
         <Suspense
           fallback={<p className="font-montserrat m-auto">Loading...</p>}
