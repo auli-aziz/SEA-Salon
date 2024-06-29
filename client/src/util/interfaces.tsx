@@ -24,7 +24,7 @@ export interface Service {
 export interface Branch {
   _id: string;
   name: string;
-  services: { value: string; label: string }[];
+  services: { name: string; }[];
   location: string;
   openingTime: Date;
   closingTime: Date;

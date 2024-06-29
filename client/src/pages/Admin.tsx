@@ -11,6 +11,7 @@ import ListItem from "../components/ListItem";
 import BranchSection from "../sections/BranchSection";
 import { Service, Branch, Review } from "../util/interfaces";
 import { loadReviews } from "../components/ReviewCarousel.tsx";
+import { deleteService } from "../util/http.tsx";
 
 const calculateAverageRating = (reviews: Review[]) => {
   if (reviews.length === 0) return 0;
@@ -41,6 +42,7 @@ export default function AdminDashboard() {
     reviews: Review[];
   };
   const handleOpen = () => setOpen((curr) => !curr);
+  const token = getAuthToken();
 
   return (
     <div className="w-full pt-7 px-5 md:px-12">
@@ -96,14 +98,14 @@ export default function AdminDashboard() {
               <Await resolve={services}>
                 {(loadedServices) =>
                   Object.values(loadedServices).map((s) => (
-                    <ListItem key={s.name}>
-                      <div>
+                    <ListItem isAdmin={true} id={s._id} deleteFn={deleteService}>
+                      <>
                         <p className="font-bold">{s.name}</p>
                         <p className="mt-1 text-xs">
                           <span className="font-medium">Duration:</span>{" "}
                           {s.duration} Minute{parseInt(s.duration) > 1 && "s"}
                         </p>
-                      </div>
+                      </>
                     </ListItem>
                   ))
                 }

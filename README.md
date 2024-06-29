@@ -15,7 +15,7 @@ This website consists features that fulfills the Compfest SEA assignment for eve
 | 3 | • Reservation form <br> • Database integration |
 | 4 | • Authentication system <br> • Customer and admin role <br> • Customer dashboard to view reservation history <br> • Member only reservations |
 | 5 | • Admin dashboard <br> • Branch and service creation <br> • Advanced reservation system with branch & services |
-| <b>Bonus</b> | • Reviews can only be added by cutomers <br> • Toast notification for event updates <br> • Customers can contact by email through a form <br> • About us page, brances page, services page <br> • Reset password in user profile <br> • Automatic logout within 1 hour of login <br> • Reservations page in admin dashboard <br> • Admins are able to see business stats |
+| <b>Bonus</b> | • Reviews can only be added by cutomers <br> • Toast notification for event updates <br> • Customers can contact by email through a form <br> • About us page, brances page, services page <br> • Reset password in user profile <br> • Automatic logout within 1 hour of login <br> • Reservations page in admin dashboard <br> • Admins are able to see business stats <br> • Error page in case of an undefined route <br> • Admins can delete service, branch, & reservation |
 
 The website leverages MongoDB to store the data and mongoose as the ODM.
 
@@ -99,3 +99,28 @@ The website leverages MongoDB to store the data and mongoose as the ODM.
   ```
 
 ## Page Screenshots
+### Home
+ 
+### Contact Us (Home)
+ 
+### Reviews (Home)
+ 
+### About us
+
+### Available Branches
+
+### Our Services
+
+### Add Reservation
+
+### Customer Dashboard
+
+### Admin Dashboard
+ 
+### Add Branch (Admin)
+ 
+### Reservations (Admin)
+ 
+### Admin Settings  
+ 
+### 404 Error Page

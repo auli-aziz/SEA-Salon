@@ -68,7 +68,7 @@ export function useAddReservation(token: string | null, branches: Branch[]) {
     } catch (error) {
       let errorMessage;
       if (error instanceof Error) {
-        errorMessage = error.response?.data;
+        errorMessage = error.message;
       }
       if (errorMessage === "read ECONNRESET") {
         errorMessage = "Please check your internet connection";

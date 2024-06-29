@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { defer, useLoaderData, Await } from "react-router-dom";
-import ReservationForm from "../components/forms/ReservationForm";
-import { loadBranches } from "../util/admin";
+import ReservationForm from "../components/forms/ReservationForm.tsx";
+import { loadBranches } from "../util/admin.tsx";
 import { Branch } from "../util/interfaces.tsx";
 
 export default function Reservation() {

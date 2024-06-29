@@ -67,12 +67,14 @@ export default function AdminSidebar({
             Branches
           </ListItem>
         </Link>
-        <ListItem>
-          <ListItemPrefix>
-            <PiNotebookFill />
-          </ListItemPrefix>
-          Reservations
-        </ListItem>
+        <Link to={"/admin/reservations"} onClick={closeDrawer}>
+          <ListItem>
+            <ListItemPrefix>
+              <PiNotebookFill />
+            </ListItemPrefix>
+            Reservations
+          </ListItem>
+        </Link>
         <Link to={"/admin/settings"} onClick={closeDrawer}>
           <ListItem>
             <ListItemPrefix>

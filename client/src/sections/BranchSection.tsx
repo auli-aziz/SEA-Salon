@@ -3,6 +3,7 @@ import Border from "../components/Border";
 import { formatTime } from "../pages/Admin";
 import { Branch } from "../util/interfaces";
 import { useEffect, useState } from "react";
+import { deleteBranch } from "../util/http";
 
 export default function BranchSection({
   branches,
@@ -13,13 +14,16 @@ export default function BranchSection({
 }) {
   const [searchBranch, setSearchBranch] = useState("");
   const [result, setResult] = useState<Branch[]>(branches);
+  const role = localStorage.getItem("role");
+
+  const isAdmin = (role === "admin" ? true : false);
 
   useEffect(() => {
     const filteredData = Object.values(branches).filter((branch) =>
       branch.name.toLowerCase().includes(searchBranch.toLowerCase())
     );
     setResult(filteredData);
-  }, [searchBranch]);
+  }, [searchBranch, branches]);
   
   return (
     <div className="relative">
@@ -37,7 +41,7 @@ export default function BranchSection({
       <Border>
         {result &&
           Object.values(result).map((b) => (
-            <ListItem>
+            <ListItem isAdmin={isAdmin} id={b._id} deleteFn={deleteBranch}>
               <div>
                 <p className="font-bold text-lg m-1">{b.name}</p>
                 <div className="w-fit flex flex-wrap gap-1 my-1 py-1 bg-gray-100">

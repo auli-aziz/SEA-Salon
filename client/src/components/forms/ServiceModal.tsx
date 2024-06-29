@@ -69,7 +69,7 @@ export default function ServiceModal({
                   required
                   className="h-10 max-w-64 p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md"
                 />
-                <p className="m-auto font-semibold text-black">Minutes</p>
+                <p className="m-auto font-semibold text-black text-sm md:text-md">Minutes</p>
               </div>
             </div>
           </CardBody>

@@ -10,7 +10,7 @@ import Home from "./pages/Home.tsx";
 import Error from "./pages/Error.tsx";
 import Reservation, {
   loader as reservationFormLoader,
-} from "./pages/Reservation.tsx";
+} from "./pages/AddReservation.tsx";
 import { loader as reviewLoader } from "./components/ReviewCarousel.tsx";
 import Authentication, {
   action as authAction,
@@ -29,6 +29,7 @@ import { loader as adminSettingsLoader } from "./pages/AdminSettings.tsx";
 import AddBranches, { loader as branchLoader } from "./pages/AddBranch.tsx";
 import About from "./pages/About.tsx";
 import { action as resetPasswordAction } from "./pages/ResetPassword.tsx";
+import Reservations, { loader as reservationsLoader } from "./pages/Reservations.tsx";
 
 const Branches = lazy(() => import("./pages/Branches.tsx"));
 const Services = lazy(() => import("./pages/Services.tsx"));
@@ -129,6 +130,11 @@ const router = createBrowserRouter([
             path: "branches",
             element: <AddBranches />,
             loader: branchLoader,
+          },
+          {
+            path: "reservations",
+            element: <Reservations />,
+            loader: reservationsLoader,
           },
         ],
       },

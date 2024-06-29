@@ -34,7 +34,7 @@ export function useAddReview(token: string | null) {
     } catch (error) {
       let errorMessage;
       if (error instanceof Error) {
-        errorMessage = error.response.data;
+        errorMessage = error.message;
       }
       setIsSubmitting(false);
       setError(errorMessage);

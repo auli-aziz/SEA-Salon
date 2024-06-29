@@ -54,7 +54,7 @@ export function useAddBranch() {
       }
       return "success";
     } catch (error) {
-      let errorMessage = "";
+      let errorMessage;
       if (error instanceof Error) {
         errorMessage = error.message;
       }
