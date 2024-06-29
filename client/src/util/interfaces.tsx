@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export interface Profile {
   _id: string;
   fullName: string;
@@ -14,6 +16,7 @@ export interface Review {
 }
 
 export interface Service {
+  _id: string;
   name: string;
   duration: number;
 }
@@ -37,4 +40,12 @@ export interface Reservation {
   dateAndTime: Date;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ReservationData {
+  name: string;
+  phoneNumber: string;
+  branch: string;
+  typeOfService: string;
+  dateAndTime: Dayjs;
 }

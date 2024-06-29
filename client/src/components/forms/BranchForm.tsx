@@ -1,77 +1,41 @@
-import { useState } from "react";
-import axios from "axios";
+import { useRef, useState } from "react";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import Select from "react-tailwindcss-select";
 import BlackButton from "../BlackButton";
 import { Dayjs } from "dayjs";
 import { Form } from "react-router-dom";
-import { getAuthToken } from "../../util/auth";
 import { Service } from "../../util/interfaces";
+import { useAddBranch } from "../../hooks/useAddBranch";
 
 export default function BranchForm({ services }: { services: Service[] }) {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [name, setName] = useState<string>("");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLInputElement>(null);
   const [selectedServices, setSelectedServices] = useState<{ value: string; label: string }[]>([]);
-  const [location, setLocation] = useState<string>("");
   const [openingTime, setOpeningTime] = useState<Dayjs | null>(null);
   const [closingTime, setClosingTime] = useState<Dayjs | null>(null);
-  const token = getAuthToken() as string | null;
 
-  const addBranch = async (e) => {
+  const { addBranch, isSubmitting, error } = useAddBranch();
+
+  const handleAddBranch = async (e) => {
     e.preventDefault();
-    setError(null);
 
-    if (!openingTime || !closingTime) {
-      setError("All fields must be filled");
-      return;
-    }
+    if (!nameRef.current || !locationRef.current) return;
 
-    if (openingTime > closingTime) {
-      setError("Opening time must be before closing time");
-      return;
-    }
+    const branchData = {
+      name: nameRef.current.value,
+      location: locationRef.current.value,
+      openingTime,
+      closingTime,
+      services: selectedServices,
+    };
 
-    try {
-      setIsSubmitting(true);
-      
-      const selectedServiceIds = selectedServices.map(service => service.value);
+    const result = await addBranch(branchData);
 
-      const response = await axios.post(
-        "/administrator/addbranch",
-        {
-          name: name,
-          location: location,
-          openingTime: openingTime,
-          closingTime: closingTime,
-          services: selectedServiceIds,  // Include selected services
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-
-      setIsSubmitting(false);
-      if (response.status === 201) {
-        setName("");
-        setLocation("");
-        setOpeningTime(null);
-        setClosingTime(null);
-        setSelectedServices([]); // Clear selected services
-      } else {
-        console.log(response);
-      }
-    } catch (error) {
-      let errorMessage;
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      setIsSubmitting(false);
-      setError(errorMessage);
-      console.log(errorMessage);
+    if (result === "success") {
+      e.target.reset();
+      setSelectedServices([]);
+      setOpeningTime(null);
+      setClosingTime(null);
     }
   };
 
@@ -81,8 +45,8 @@ export default function BranchForm({ services }: { services: Service[] }) {
 
   return (
     <Form
-      onSubmit={addBranch}
-      className="lg:max-w-[420px] w-full py-5 px-10 bg-gray-300 rounded-lg text-left"
+      onSubmit={handleAddBranch}
+      className="lg:max-w-[420px] w-full py-5 px-7 bg-gray-300 rounded-lg text-left"
     >
       <p className="font-economica text-xl font-bold">Add New Branch</p>
       {error && (
@@ -97,8 +61,7 @@ export default function BranchForm({ services }: { services: Service[] }) {
         <input
           type="text"
           required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          ref={nameRef}
           className="h-10 w-full p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md"
         />
       </div>
@@ -109,8 +72,7 @@ export default function BranchForm({ services }: { services: Service[] }) {
         <input
           type="text"
           required
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          ref={locationRef}
           className="h-10 w-full p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md"
         />
       </div>

@@ -7,7 +7,7 @@ import { Service } from "../util/interfaces";
 export default function Services() {
   const { services } = useLoaderData() as { services: Service[] };
   return (
-    <div className="px-16 py-10 h-fit w-full flex flex-col items-center justify-center">
+    <div className="px-16 pb-10 pt-32 h-fit w-full flex flex-col items-center justify-center">
       <h3 className="font-bold font-economica text-3xl text-red-900 text-center">
         Our Services
       </h3>

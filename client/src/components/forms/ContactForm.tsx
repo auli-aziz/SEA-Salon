@@ -17,6 +17,7 @@ export default function ContactForm() {
         () => {
           console.log("SUCCESS!");
           toast.success("Message sent");
+          e.target.reset();
         },
         (error) => {
           console.log("FAILED...", error.text);
@@ -33,24 +34,27 @@ export default function ContactForm() {
       >
         <input
           name="user_name"
+          required
           type="text"
           className="p-1 border-4 border-red-800 mb-5 font-economica md:text-xl"
           placeholder="Enter your Name"
         />
         <input
           name="user_email"
+          required
           type="email"
           className="p-1 border-4 border-red-800 mb-5 font-economica md:text-xl"
           placeholder="Enter your Email"
         />
         <textarea
           name="message"
+          required
           className="p-1 border-4 border-red-800 mb-5 font-economica md:text-xl h-52"
           placeholder="Enter your Message"
         />
         <button
           type="submit"
-          className="bg-red-800 p-2 text-white font-economica md:text-lg font-bold"
+          className="bg-red-800 p-2 text-white font-economica md:text-lg font-bold hover:scale-105"
         >
           SEND EMAIL
         </button>

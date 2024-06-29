@@ -13,8 +13,8 @@ export default function AuthButton({
   const { path, isFixed } = useContext(NavbarContext);
 
   const buttonStyle =
-    "w-fit rounded-lg md:ml-10 md:mt-0 mt-5 px-8 py-1 font-bold text-md md:text-xl font-economica hover:bg-black hover:text-white border-2";
-  const adminStyling = "text-gray-200 md:border-black md:text-gray-900";
+    `w-fit rounded-lg px-8 py-1 font-bold text-md md:text-xl font-economica hover:bg-black hover:text-white border-2 ${isAdminDashboard? "ml-5" : "md:mt-0 mt-5 md:ml-10"}`;
+  const adminStyling = "border-black text-gray-900 mt-0";
   const customerStyling = `${(isFixed || path !== "/")? "md:border-black md:text-gray-900 border-white text-white" : "border-white text-white"}`;
 
   const handleLogin = () => {

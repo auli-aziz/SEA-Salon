@@ -12,7 +12,7 @@ export default function ServiceCard({
         <h5 className="text-xl font-bold font-economica z-10">
           {name}
         </h5>
-        <p className="text-sm">Duration: {duration} Minute(s)</p>
+        <p className="text-sm">Duration: {duration} Minute{parseInt(duration) > 1 && "s"}</p>
       </div>
     </div>
   );

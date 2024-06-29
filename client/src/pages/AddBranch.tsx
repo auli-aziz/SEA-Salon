@@ -11,7 +11,7 @@ export default function AddBranches() {
   };
 
   return (
-    <div className="mt-7 md:mx-16 mx-5">
+    <div className="mt-7 md:mx-16 mx-1">
       <div className="h-fit w-full p-10 border-t-xl bg-white">
         <h4 className="font-montserrat font-semibold text-xl lg:ml-10 text-center lg:text-left">
           Branches

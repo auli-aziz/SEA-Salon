@@ -12,6 +12,18 @@ import BranchSection from "../sections/BranchSection";
 import { Service, Branch, Review } from "../util/interfaces";
 import { loadReviews } from "../components/ReviewCarousel.tsx";
 
+const calculateAverageRating = (reviews: Review[]) => {
+  if (reviews.length === 0) return 0;
+
+  let sum: number = 0;
+  reviews.forEach((r) => {
+    sum += r.rating;
+  });
+
+  const average = sum / reviews.length;
+  return Number(average.toFixed(2));
+};
+
 export const formatTime = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Jakarta",
@@ -29,18 +41,6 @@ export default function AdminDashboard() {
     reviews: Review[];
   };
   const handleOpen = () => setOpen((curr) => !curr);
-
-  const calculateAverageRating = (reviews: Review[]) => {
-    if (reviews.length === 0) return 0;
-
-    let sum: number = 0;
-    reviews.forEach((r) => {
-      sum += r.rating;
-    });
-
-    const average = sum / reviews.length;
-    return Number(average.toFixed(2));
-  };
 
   return (
     <div className="w-full pt-7 px-5 md:px-12">
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
                         <p className="font-bold">{s.name}</p>
                         <p className="mt-1 text-xs">
                           <span className="font-medium">Duration:</span>{" "}
-                          {s.duration} Minute(s)
+                          {s.duration} Minute{parseInt(s.duration) > 1 && "s"}
                         </p>
                       </div>
                     </ListItem>

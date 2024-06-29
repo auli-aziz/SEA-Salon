@@ -19,7 +19,7 @@ export default function ReviewModal({
   open: boolean;
   handleOpen: () => void;
 }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [rated, setRated] = useState(0);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
@@ -27,7 +27,7 @@ export default function ReviewModal({
   
   const handleAddReview = async () => {
     try {
-      setIsLoading(true);
+      setIsSubmitting(true);
       const response = await axios.post("/customer/addreview", {
         name: name,
         comment: comment,
@@ -38,7 +38,7 @@ export default function ReviewModal({
           "Authorization": "Bearer " + token
         }
       });
-      setIsLoading(false);
+      setIsSubmitting(false);
       if (response.status === 201) {
         handleOpen();
       } else {
@@ -49,7 +49,7 @@ export default function ReviewModal({
       if (error instanceof Error) {
         errorMessage = error.response.data;
       }
-      setIsLoading(false);
+      setIsSubmitting(false);
       console.log(errorMessage);
     }
   };
@@ -90,12 +90,12 @@ export default function ReviewModal({
         <CardFooter className="pt-0">
           <button
             onClick={handleAddReview}
-            disabled={isLoading}
+            disabled={isSubmitting}
             className={`flex justify-center rounded-lg text-gray-200 font-bold w-full py-1 font-economica ${
-              isLoading ? "bg-gray-800" : "bg-gray-900 hover:bg-black"
+              isSubmitting ? "bg-gray-800" : "bg-gray-900 hover:bg-black"
             }`}
           >
-            {isLoading ? (
+            {isSubmitting ? (
               <div className="flex items-center gap-3">
                 <Spinner className="h-4 w-4" />
                 Submitting...

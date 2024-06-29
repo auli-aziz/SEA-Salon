@@ -51,7 +51,7 @@ export default function About() {
             self-care and leave feeling confident and beautiful. Thank you for
             choosing SEA Salon. We look forward to serving you!
           </p>
-          <div className="w-full mt-10 flex justify-around">
+          <div className="w-full mt-10 flex justify-around gap-5">
             <button
               onClick={() => navigate("/branches")}
               className="h-fit py-1 w-32 text-red-900 border-2 border-red-900 font-economica font-bold rounded-lg hover:bg-red-900 hover:text-gray-200"

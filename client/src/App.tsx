@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,7 +8,6 @@ import AdminLayout from "./pages/AdminLayout.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import Home from "./pages/Home.tsx";
 import Error from "./pages/Error.tsx";
-import Services, { loader as serviceLoader } from "./pages/Services.tsx";
 import Reservation, {
   loader as reservationFormLoader,
 } from "./pages/Reservation.tsx";
@@ -28,8 +28,10 @@ import AdminSettings from "./pages/AdminSettings.tsx";
 import { loader as adminSettingsLoader } from "./pages/AdminSettings.tsx";
 import AddBranches, { loader as branchLoader } from "./pages/AddBranch.tsx";
 import About from "./pages/About.tsx";
-import Branches, { loader as branchesLoader } from "./pages/Branches.tsx";
 import { action as resetPasswordAction } from "./pages/ResetPassword.tsx";
+
+const Branches = lazy(() => import("./pages/Branches.tsx"));
+const Services = lazy(() => import("./pages/Services.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -74,13 +76,23 @@ const router = createBrowserRouter([
       },
       {
         path: "services",
-        element: <Services />,
-        loader: serviceLoader,
+        element: (
+          <Suspense fallback={<p className="font-montserrat">Loading...</p>}>
+            <Services />
+          </Suspense>
+        ),
+        loader: () =>
+          import("./pages/Services.tsx").then((module) => module.loader()),
       },
       {
         path: "branches",
-        element: <Branches />,
-        loader: branchesLoader,
+        element: (
+          <Suspense fallback={<p className="font-montserrat">Loading...</p>}>
+            <Branches />
+          </Suspense>
+        ),
+        loader: () =>
+          import("./pages/Branches.tsx").then((module) => module.loader()),
       },
       {
         path: "auth",
