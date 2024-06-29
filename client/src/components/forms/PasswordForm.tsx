@@ -1,5 +1,5 @@
 import { Form, useNavigation } from "react-router-dom";
-import { Spinner } from "@material-tailwind/react";
+import BlackButton from "../BlackButton";
 
 export default function PasswordForm() {
   const navigation = useNavigation();
@@ -32,7 +32,7 @@ export default function PasswordForm() {
           </tr>
         </table>
       </div>
-      <div className="mt-1">
+      <div className="mt-1 mb-7">
         <table className="text-xs">
           <tr className="text-left">
             <td className="font-semibold min-w-20 md:min-w-32">
@@ -49,10 +49,6 @@ export default function PasswordForm() {
               />
             </td>
           </tr>
-        </table>
-      </div>
-      <div className="mt-1">
-        <table className="text-xs">
           <tr className="text-left">
             <td className="font-semibold min-w-20 md:min-w-32">
               <label className="font-medium" htmlFor="fullName">
@@ -70,21 +66,7 @@ export default function PasswordForm() {
           </tr>
         </table>
       </div>
-      <button
-        type="submit"
-        className={`w-full flex justify-center font-economica mt-10 font-bold text-xl bg-gray-900 text-white py-1 px-5 rounded-xl ${
-          isSubmitting ? "" : " hover:bg-black"
-        }`}
-      >
-        {isSubmitting ? (
-          <div className="margin-auto flex items-center gap-3">
-            <Spinner className="h-4 w-4" />
-            Submitting...
-          </div>
-        ) : (
-          "Reset"
-        )}
-      </button>
+      <BlackButton isSubmitting={isSubmitting} />
     </Form>
   );
 }

@@ -1,23 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import { Dayjs } from "dayjs";
 import { getAuthToken } from "../util/auth";
 import { toast } from "react-toastify";
-
-interface AddBranchData {
-  name: string;
-  location: string;
-  openingTime: Dayjs | null;
-  closingTime: Dayjs | null;
-  services: { value: string; label: string }[];
-}
+import { Branch } from "../util/interfaces";
 
 export function useAddBranch() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const token = getAuthToken() as string | null;
 
-  const addBranch = async (data: AddBranchData) => {
+  const addBranch = async (data: Branch) => {
     setError(null);
 
     const { name, location, openingTime, closingTime, services } = data;

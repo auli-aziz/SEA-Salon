@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, useRouteLoaderData } from "react-router-dom";
-import { Spinner } from "@material-tailwind/react";
 import { Dayjs } from "dayjs";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { Branch, Service } from "../../util/interfaces";
 import { useAddReservation } from "../../hooks/useAddReservation";
+import Input from "../Input";
+import TransparentButton from "../TransparentButton";
 
 export default function ReservationForm({ branches }: { branches: Branch[] }) {
   const [date, setDate] = useState<Dayjs | null>(null);
@@ -39,8 +40,6 @@ export default function ReservationForm({ branches }: { branches: Branch[] }) {
     }
   };
 
-  const inputStyling = "h-10 w-full p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md";
-
   return (
     <Form
       onSubmit={handleSubmit}
@@ -54,28 +53,24 @@ export default function ReservationForm({ branches }: { branches: Branch[] }) {
           {error}
         </div>
       )}
-      <div className="mb-3 flex md:flex-row flex-col w-full h-fit gap-3">
-        <div className="font-montserrat font-medium text-sm flex-1">
-          <label className="">Name</label>
-          <input
-            type="text"
-            className={inputStyling}
-            name="name"
-            ref={name}
-          />
-        </div>
-        <div className="font-montserrat font-medium text-sm flex-1">
-          <label className="">Phone Number</label>
-          <input
-            type="tel"
-            className={inputStyling}
-            name="phoneNumber"
-            ref={phoneNumber}
-          />
-        </div>
+      <div className="flex md:flex-row flex-col w-full h-fit gap-0 md:gap-3">
+        <Input
+          labelName="Name"
+          type="text"
+          name="name"
+          placeholder=""
+          ref={name}
+         />
+        <Input
+          labelName="Phone Number"
+          type="tel"
+          name="phoneNumber"
+          placeholder=""
+          ref={phoneNumber}
+         />
       </div>
-      <div className="mb-3 font-montserrat font-medium text-sm">
-        <label className="">Branch</label>
+      <div className="mt-3 font-montserrat text-sm">
+        <label className="font-semibold">Branch</label>
         <select
           className="h-10 w-full text-gray-900 !border !border-gray-400 bg-white shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-lg"
           value={branch}
@@ -86,8 +81,8 @@ export default function ReservationForm({ branches }: { branches: Branch[] }) {
           ))}
         </select>
       </div>
-      <div className="mb-3 font-montserrat font-medium text-sm">
-        <label className="">Service</label>
+      <div className="mt-3 font-montserrat text-sm">
+        <label className="font-semibold">Service</label>
         <select
           className="h-10 w-full text-gray-900 !border !border-gray-400 bg-white shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-lg"
           value={selectedService}
@@ -98,30 +93,15 @@ export default function ReservationForm({ branches }: { branches: Branch[] }) {
           ))}
         </select>
       </div>
-      <div className="font-montserrat font-medium text-sm">
-        <label className="">Date & Time</label>
+      <div className="font-montserrat text-sm mt-3">
+        <label className="font-semibold">Date & Time</label>
         <MobileDateTimePicker
           className="w-full"
           value={date}
           onChange={(newDate) => setDate(newDate)}
         />
       </div>
-      <button
-        disabled={isSubmitting}
-        className={`flex justify-center font-economica mt-10 font-bold text-xl border-2 border-red-800 text-red-800 py-1 px-5 rounded-xl ${
-          isSubmitting ? "" : " hover:bg-red-800 hover:text-gray-200"
-        }`}
-        type="submit"
-      >
-        {isSubmitting ? (
-          <div className="margin-auto flex items-center gap-3">
-            <Spinner className="h-4 w-4" />
-            Submitting...
-          </div>
-        ) : (
-          "Submit"
-        )}
-      </button>
+      <TransparentButton isSubmitting={isSubmitting} />
     </Form>
   );
 }

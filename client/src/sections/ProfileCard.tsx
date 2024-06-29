@@ -4,7 +4,7 @@ import { Profile } from "../util/interfaces";
 export default function ProfileCard({ profile }: { profile: Profile }) {
   return (
     <div className="h-fit w-full m-auto md:m-0 md:w-[600px] py-5 px-10 rounded-lg shadow-xl text-center">
-      <h4 className="font-montserrat font-semibold text-xl">My Profile</h4>
+      <h4 className="font-montserrat font-semibold md:text-xl text-lg">My Profile</h4>
       <table className="w-full mt-5 text-left font-montserrat text-sm">
         <tbody>
           <tr className="h-7">

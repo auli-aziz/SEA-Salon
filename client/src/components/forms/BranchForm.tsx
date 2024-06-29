@@ -6,11 +6,12 @@ import { Dayjs } from "dayjs";
 import { Form } from "react-router-dom";
 import { Service } from "../../util/interfaces";
 import { useAddBranch } from "../../hooks/useAddBranch";
+import Input from "../Input";
 
 export default function BranchForm({ services }: { services: Service[] }) {
   const nameRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
-  const [selectedServices, setSelectedServices] = useState<{ value: string; label: string }[]>([]);
+  const [selectedServices, setSelectedServices] = useState<Service[]>([]);
   const [openingTime, setOpeningTime] = useState<Dayjs | null>(null);
   const [closingTime, setClosingTime] = useState<Dayjs | null>(null);
 
@@ -39,7 +40,7 @@ export default function BranchForm({ services }: { services: Service[] }) {
     }
   };
 
-  const handleChange = (value) => {
+  const handleChange = (value: Service[]) => {
     setSelectedServices(value);
   };
 
@@ -54,28 +55,20 @@ export default function BranchForm({ services }: { services: Service[] }) {
           {error}
         </div>
       )}
-      <div className="w-full mt-3 font-montserrat text-sm">
-        <label className="w-full font-semibold" htmlFor="name">
-          Name
-        </label>
-        <input
-          type="text"
-          required
-          ref={nameRef}
-          className="h-10 w-full p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md"
-        />
-      </div>
-      <div className="w-full mt-3 font-montserrat text-sm">
-        <label className="w-full font-semibold" htmlFor="location">
-          Location
-        </label>
-        <input
-          type="text"
-          required
-          ref={locationRef}
-          className="h-10 w-full p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md"
-        />
-      </div>
+      <Input
+        labelName="Name"
+        type="text"
+        name="name"
+        placeholder=""
+        ref={nameRef}
+      />
+      <Input
+        labelName="Location"
+        type="text"
+        name="location"
+        placeholder=""
+        ref={locationRef}
+      />
       <div className="w-full mt-3 font-montserrat text-sm">
         <label className="w-full font-semibold" htmlFor="services">
           Services

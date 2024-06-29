@@ -26,7 +26,7 @@ export default function Hero() {
       </p>
       <button
         onClick={() => navigate("/reservation")}
-        className="font-economica mt-10 font-bold text-xl py-1 px-5 rounded-xl z-10 text-gray-200 bg-transparent border-2 border-white hover:border-red-900 hover:bg-red-800"
+        className="font-economica mt-10 font-bold text-xl py-1 px-5 rounded-xl z-10 text-gray-200 bg-transparent border-4 border-red-900 hover:border-red-900 hover:bg-red-800"
       >
         Book Now
       </button>
