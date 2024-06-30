@@ -1,10 +1,10 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const connectDatabase = require("./config/db");
 const dotenv = require("dotenv");
-const authRoutes = require("./routes/auth");
-const adminRoutes = require("./routes/admin");
-const customerRoutes = require("./routes/customer");
+const bodyParser = require("body-parser");
+const connectDatabase = require("./src/config/db");
+const authRoutes = require("./src/routes/auth");
+const adminRoutes = require("./src/routes/admin");
+const customerRoutes = require("./src/routes/customer");
 dotenv.config();
 
 const app = express();
