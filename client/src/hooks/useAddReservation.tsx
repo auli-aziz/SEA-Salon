@@ -70,14 +70,15 @@ export function useAddReservation(token: string | null, branches: BranchModel[])
       if (error instanceof Error) {
         errorMessage = error.message;
       }
-      if (errorMessage === "read ECONNRESET") {
+      if (error.response.status === 500) {
         errorMessage = "Please check your internet connection";
-      } else if (errorMessage === "Access denied") {
+      } else if (error.response.status === 403) {
         errorMessage = "Only customers can make reservations";
       }
       setIsSubmitting(false);
       setError(errorMessage);
-      console.log(errorMessage);
+      console.log(error);
+      
     }
   };
 
