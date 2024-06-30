@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function StatCard({ title, num, bgColor }: { title: string; num: number; bgColor: string; }) {
   return (
     <div className={"p-5 text-center rounded-lg min-w-52 w-64 " + bgColor}>

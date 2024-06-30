@@ -8,8 +8,8 @@ export default function Branches() {
   const { branches } = useLoaderData() as { branches: Branch[] };
 
   return (
-    <div className="py-10 mx-5 flex flex-col items-center">
-      <h3 className="font-economica text-2xl font-bold mb-7">Our Branches</h3>
+    <div className="py-10 mx-5 lg:px-52 mt-16 flex flex-col items-center">
+      <h3 className="font-economica text-2xl font-bold mb-7 text-red-900">Our Branches</h3>
       <Suspense fallback={<p className="font-montserrat m-auto">Loading...</p>}>
         <Await resolve={branches}>
           {(loadedBranches) => (

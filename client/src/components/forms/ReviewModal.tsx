@@ -4,14 +4,13 @@ import {
   Card,
   CardBody,
   CardFooter,
-  Textarea,
-  Input,
   Rating,
-  Spinner,
 } from "@material-tailwind/react";
 import { Form, useRouteLoaderData } from "react-router-dom";
 import { useAddReview } from "../../hooks/useAddReview";
 import BlackButton from "../BlackButton";
+import Input from "../Input";
+import { toast } from "react-toastify";
 
 export default function ReviewModal({
   open,
@@ -21,11 +20,11 @@ export default function ReviewModal({
   handleOpen: () => void;
 }) {
   const nameRef = useRef<HTMLInputElement>(null);
-  const commentRef = useRef<HTMLInputElement>(null);
+  const commentRef = useRef<HTMLTextAreaElement>(null);
   const [rated, setRated] = useState(0);
   const token = useRouteLoaderData("root") as string | null;
 
-  const { addReview, isSubmitting, error } = useAddReview(token);
+  const { addReview, isSubmitting } = useAddReview(token);
 
   const handleAddReview = async (e) => {
     e.preventDefault;
@@ -34,12 +33,13 @@ export default function ReviewModal({
       _id: null,
       name: nameRef.current.value,
       comment: commentRef.current.value,
-      rating: rated
-    }
+      rating: rated,
+    };
 
     const result = await addReview(reviewData);
-    if(result === "success") {
+    if (result === "success") {
       handleOpen();
+      toast.success("Thank you for your feedback!");
     }
   };
 
@@ -58,8 +58,24 @@ export default function ReviewModal({
                 Rate Us
               </h3>
             </div>
-            <input ref={nameRef} color={"red"} size="lg" />
-            <textarea ref={commentRef} color={"red"} />
+            <Input
+              labelName="Name"
+              type="text"
+              name="name"
+              placeholder=""
+              ref={nameRef}
+            />
+            <div className="w-full mt-3 font-montserrat text-sm">
+              <label className="font-semibold" htmlFor="name">
+                Comment
+              </label>
+              <textarea
+                required
+                name="comment"
+                ref={commentRef}
+                className="w-full h-32 p-2 !border !border-gray-400 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10 rounded-md"
+              />
+            </div>
             <Rating
               value={rated}
               onChange={(value) => setRated(value)}

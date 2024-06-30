@@ -27,7 +27,7 @@ export function useAddBranch() {
     try {
       setIsSubmitting(true);
 
-      const selectedServiceIds = services.map(service => service.value);
+      const selectedServices = services.map(service => service.value);
 
       const response = await axios.post(
         "/administrator/addbranch",
@@ -36,7 +36,7 @@ export function useAddBranch() {
           location,
           openingTime,
           closingTime,
-          services: selectedServiceIds,
+          services: selectedServices,
         },
         {
           headers: {

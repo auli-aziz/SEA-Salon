@@ -17,7 +17,7 @@ export default function AddBranches() {
           Branches
         </h4>
         <div className="flex flex-wrap lg:justify-between justify-center gap-5 mt-3">
-          <div className="w-full md:max-w-[800px]">
+          <div className="w-full md:max-w-[780px]">
             <Suspense
               fallback={<p className="font-montserrat m-auto">Loading...</p>}
             >

@@ -100,27 +100,52 @@ The website leverages MongoDB to store the data and mongoose as the ODM.
 
 ## Page Screenshots
 ### Home
- 
-### Contact Us (Home)
- 
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/535f4eb3-5010-460b-af18-f70c0d719b42)
+
 ### Reviews (Home)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/a3ebaf7e-2a16-4bd0-8916-5dc714c7400b)
+
+### Contact Us (Home)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/2984940f-a652-40c4-82a1-47011f38b536)
  
 ### About us
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/c0b9cbfe-1515-46ff-94cc-06c2418080cd)
 
 ### Available Branches
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/d77aeaaf-2824-45da-8237-eaf54a4605ee)
 
 ### Our Services
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/dc64af27-168c-4344-8b2d-b88fd0891ad4)
 
-### Add Reservation
+### Login
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/04b531b9-4b56-4fb9-9bc4-91bb0a94323f)
+
+### Signup
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/5842197b-1697-44b9-b5e6-acda741796ba)
 
 ### Customer Dashboard
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/244a7c03-b188-4c2a-9812-0cd9653d45bf)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/03c80732-4284-43fb-b222-1902f8b5fe3e)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/62ca5ee3-6a40-42d7-9f8c-d0f8261f655e)
+
+### Add Reservation
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/bc8af5e7-385a-4625-b6db-8703dc67c92c)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/52685a31-19aa-47c5-92d9-6788bcf9a43d)
 
 ### Admin Dashboard
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/f335eeef-ddb9-4f9f-8c56-a186642549e0)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/253e3893-d0cc-415a-ae5f-ad9baa34ba21)
  
 ### Add Branch (Admin)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/834c872c-4981-42c8-8a91-10508d4a4842)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/d9279a09-ab43-4a61-86fb-26242164d263)
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/fcfbebb7-0352-4206-b40e-2fef63f009f7)
  
 ### Reservations (Admin)
- 
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/6a34f6d2-af0b-4d3a-9c92-b024d606a212)
+
 ### Admin Settings  
- 
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/e0cbcf77-b4e9-42ce-bbb7-39801c94e3e3)
+
 ### 404 Error Page
+![image](https://github.com/auli-aziz/SEA-Salon/assets/109910388/b736d500-5f08-4680-8ec2-b54f2420f1ea)

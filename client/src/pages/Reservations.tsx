@@ -1,11 +1,11 @@
-import { defer, useLoaderData } from "react-router-dom";
+import { Await, defer, useLoaderData } from "react-router-dom";
 import { loadBranches, loadReservations } from "../util/admin";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Branch, Reservation } from "../util/interfaces";
 import Border from "../components/Border";
 import { deleteReservation } from "../util/http";
 import ListItem from "../components/ListItem";
-import { formatDate } from "../sections/ReservationsHistory";
+import { formatDate } from "../util/format";
 
 export default function Reservations() {
   const { reservations, branches } = useLoaderData() as {
@@ -16,7 +16,9 @@ export default function Reservations() {
   const [reservation, setReservation] = useState<Reservation[]>([]);
 
   useEffect(() => {
-    const fileteredReservation = reservations.filter((r) => r.branch === branch);
+    const fileteredReservation = reservations.filter(
+      (r) => r.branch === branch
+    );
     setReservation(fileteredReservation);
   }, [branch, reservations]);
 
@@ -34,25 +36,49 @@ export default function Reservations() {
               value={branch}
               onChange={(e) => setBranch(e.target.value)}
             >
-              {branches.map((b) => (
-                <option value={b.name} key={b._id}>
-                  {b.name}
-                </option>
-              ))}
+              <Suspense
+                fallback={<p className="font-montserrat m-auto">Loading...</p>}
+              >
+                <Await resolve={branches}>
+                  {(loadedBranches) =>
+                    loadedBranches.map((b) => (
+                      <option value={b.name} key={b._id}>
+                        {b.name}
+                      </option>
+                    ))
+                  }
+                </Await>
+              </Suspense>
             </select>
           </div>
         </div>
         <Border>
-          {reservation.map((r) => (
-            <ListItem isAdmin={true} id={r._id} deleteFn={deleteReservation}>
-              <>
-                <p className="text-base md:text-lg font-semibold">{r.name}</p>
-                <div className="w-fit px-3 my-2 bg-red-100 rounded-md text-center font-medium text-xs">{r.typeOfService}</div>
-                <p className="text-xs md:text-sm">{r.phoneNumber}</p>
-                <p className="text-red-900 font-medium text-xs md:text-sm">{formatDate(r.dateAndTime)}</p>
-              </>
-            </ListItem>
-          ))}
+          <Suspense
+            fallback={<p className="font-montserrat m-auto">Loading...</p>}
+          >
+            <Await resolve={reservations}>
+              {reservation.map((r) => (
+                <ListItem
+                  isAdmin={true}
+                  id={r._id}
+                  deleteFn={deleteReservation}
+                >
+                  <>
+                    <p className="text-base md:text-lg font-semibold">
+                      {r.name}
+                    </p>
+                    <div className="w-fit px-3 my-2 bg-red-100 rounded-md text-center font-medium text-xs">
+                      {r.typeOfService}
+                    </div>
+                    <p className="text-xs md:text-sm">{r.phoneNumber}</p>
+                    <p className="text-red-900 font-medium text-xs md:text-sm">
+                      {formatDate(r.dateAndTime)}
+                    </p>
+                  </>
+                </ListItem>
+              ))}
+            </Await>
+          </Suspense>
         </Border>
       </div>
     </div>

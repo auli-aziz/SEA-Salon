@@ -3,12 +3,12 @@ import {
   Card,
   CardBody,
   CardFooter,
-  Spinner,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useActionData, useNavigation } from "react-router-dom";
 import { Form } from "react-router-dom";
 import BlackButton from "../BlackButton";
+import { data } from "../../util/interfaces";
 
 export default function ServiceModal({
   open,
@@ -17,9 +17,9 @@ export default function ServiceModal({
   open: boolean;
   handleOpen: () => void;
 }) {
+  const data = useActionData() as data;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  const data = useActionData();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {

@@ -12,7 +12,7 @@ export async function action({ request }: { request: Request }) {
     const confirmPass = formData.get("confirmPass");
 
     if (newPass !== confirmPass) {
-      return { error: "New password and confirm password do not match." };
+      throw new Error("New password and confirm password do not match");
     }
 
     const response = await axios.post(
@@ -44,7 +44,7 @@ export async function action({ request }: { request: Request }) {
         message: errorMessage,
       };
     } else {
-      toast.error("Unexpected error:" + error);
+      toast.error(error.message);
       return {
         status: 500,
         message: "Internal server error",

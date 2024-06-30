@@ -4,7 +4,6 @@ import { Review } from "../util/interfaces";
 
 export function useAddReview(token: string | null) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>();
-  const [error, setError] = useState<string | null>(null);
 
   async function addReview (data: Review){
     const { name, comment, rating } = data;
@@ -12,7 +11,6 @@ export function useAddReview(token: string | null) {
     
 
     try {
-      setError(null);
       setIsSubmitting(true);
       const response = await axios.post("/customer/addreview", {
         name,
@@ -28,7 +26,6 @@ export function useAddReview(token: string | null) {
       if (response.status === 201) {
         return "success";
       } else {
-        setError(response.data.message);
         console.log(response);
       }
     } catch (error) {
@@ -37,9 +34,10 @@ export function useAddReview(token: string | null) {
         errorMessage = error.message;
       }
       setIsSubmitting(false);
-      setError(errorMessage);
+      console.log(errorMessage);
+      
     }
   }
 
-  return { addReview , isSubmitting, error };
+  return { addReview , isSubmitting };
 }

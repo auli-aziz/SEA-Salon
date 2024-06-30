@@ -1,17 +1,6 @@
 import Border from "../components/Border";
+import { formatDate } from "../util/format";
 import { Reservation } from "../util/interfaces";
-
-export const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Jakarta",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  }).format(new Date(date));
-};
 
 export default function ReservationsHistory({
   reservations,
@@ -23,7 +12,7 @@ export default function ReservationsHistory({
 
   return (
     <Border>
-      {Object.values(reservations).map((r) => (
+      {reservations.length > 0 ? (Object.values(reservations).map((r) => (
         <div
           key={r._id}
           className="w-full h-fit px-5 py-1 my-1 bg-gray-100 hover:cursor-pointer"
@@ -32,7 +21,7 @@ export default function ReservationsHistory({
           <p className="font-bold">{r.typeOfService}</p>
           <p>{formatDate(r.dateAndTime)}</p>
         </div>
-      ))}
+      ))) : (<div className="flex h-full w-full"><p className="m-auto">No reservations found.</p></div>)}
     </Border>
   );
 }

@@ -7,9 +7,10 @@ import {
 } from "react-router-dom";
 import Input from "../Input";
 import TransparentButton from "../TransparentButton";
+import { data } from "../../util/interfaces";
 
 export default function AuthForm() {
-  const data = useActionData();
+  const data = useActionData() as data;
   const navigation = useNavigation();
   const [searchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";

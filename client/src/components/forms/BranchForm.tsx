@@ -4,14 +4,15 @@ import Select from "react-tailwindcss-select";
 import BlackButton from "../BlackButton";
 import { Dayjs } from "dayjs";
 import { Form } from "react-router-dom";
-import { Service } from "../../util/interfaces";
+import { Branch, Service } from "../../util/interfaces";
 import { useAddBranch } from "../../hooks/useAddBranch";
 import Input from "../Input";
+import { SelectValue } from "react-tailwindcss-select/dist/components/type";
 
 export default function BranchForm({ services }: { services: Service[] }) {
   const nameRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
-  const [selectedServices, setSelectedServices] = useState<Service[]>([]);
+  const [selectedServices, setSelectedServices] = useState<{ label: string; value: string }[] | SelectValue>([]);
   const [openingTime, setOpeningTime] = useState<Dayjs | null>(null);
   const [closingTime, setClosingTime] = useState<Dayjs | null>(null);
 
@@ -23,12 +24,13 @@ export default function BranchForm({ services }: { services: Service[] }) {
     if (!nameRef.current || !locationRef.current) return;
 
     const branchData = {
+      _id: "",
       name: nameRef.current.value,
       location: locationRef.current.value,
       openingTime,
       closingTime,
       services: selectedServices,
-    };
+    } as Branch;
 
     const result = await addBranch(branchData);
 
@@ -40,7 +42,7 @@ export default function BranchForm({ services }: { services: Service[] }) {
     }
   };
 
-  const handleChange = (value: Service[]) => {
+  const handleChange = (value: SelectValue) => {
     setSelectedServices(value);
   };
 
@@ -74,6 +76,7 @@ export default function BranchForm({ services }: { services: Service[] }) {
           Services
         </label>
         <Select
+          primaryColor="white"
           options={services.map(service => ({ value: service._id, label: service.name }))}
           value={selectedServices}
           onChange={handleChange}

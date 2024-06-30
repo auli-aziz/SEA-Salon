@@ -2,18 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import { Form, useRouteLoaderData } from "react-router-dom";
 import { Dayjs } from "dayjs";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-import { Branch, Service } from "../../util/interfaces";
+import { BranchModel } from "../../util/interfaces";
 import { useAddReservation } from "../../hooks/useAddReservation";
 import Input from "../Input";
 import TransparentButton from "../TransparentButton";
 
-export default function ReservationForm({ branches }: { branches: Branch[] }) {
+export default function ReservationForm({ branches }: { branches: BranchModel[] }) {
   const [date, setDate] = useState<Dayjs | null>(null);
   const name = useRef<HTMLInputElement>(null);
   const phoneNumber = useRef<HTMLInputElement>(null);
   const token = useRouteLoaderData('root') as string | null;
   const [branch, setBranch] = useState<string>(branches[0].name);
-  const [services, setServices] = useState<Service[]>(branches[0].services);
+  const [services, setServices] = useState<{ _id: string; name: string }[]>(branches[0].services);
   const [selectedService, setSelectedService] = useState<string>(branches[0].services[0].name);
 
   const { addReservation, isSubmitting, error } = useAddReservation(token, branches);

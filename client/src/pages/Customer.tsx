@@ -10,7 +10,7 @@ import ProfileCard from "../sections/ProfileCard";
 import ReservationsHistory from "../sections/ReservationsHistory";
 import { loadProfile } from "../util/admin";
 import DetailModal from "../components/DetailModal";
-import { formatDate } from "../sections/ReservationsHistory";
+import { formatDate } from "../util/format";
 import { Profile, Reservation } from "../util/interfaces";
 
 export default function CustomerDashboard() {
@@ -52,45 +52,45 @@ export default function CustomerDashboard() {
         >
           Make a new Reservation
         </button>
-        <DetailModal
-          title={"Reservation Detail"}
-          open={open}
-          handleOpen={() => handleOpen(null)}
-          detail={detail}
-          formatDate={formatDate}
-        >
-          <table className="w-full mt-5 text-left font-montserrat text-sm text-gray-800">
-            <tr className="h-7">
-              <td className="font-semibold md:w-52 w-32">Type of Service:</td>
-              <td className="font-regular">{detail?.typeOfService}</td>
-            </tr>
-            <tr className="h-7">
-              <td className="font-semibold md:w-52 w-32">Branch:</td>
-              <td className="font-regular">{detail?.branch}</td>
-            </tr>
-            <tr className="h-7">
-              <td className="font-semibold md:w-52 w-32">Customer Name:</td>
-              <td className="font-regular">{detail?.name}</td>
-            </tr>
-            <tr className="h-7">
-              <td className="font-semibold md:w-52 w-32">Phone Number:</td>
-              <td className="font-regular">{detail?.phoneNumber}</td>
-            </tr>
-            <tr className="h-7">
-              <td className="font-semibold md:w-52 w-32">Date & Time:</td>
-              <td className="font-regular">
-                {detail && formatDate(detail?.dateAndTime)}
-              </td>
-            </tr>
-            <tr className="h-7">
-              <td className="font-semibold md:w-52 w-32">Booking Time:</td>
-              <td className="font-regular">
-                {detail && formatDate(detail?.updatedAt)}
-              </td>
-            </tr>
-          </table>
-        </DetailModal>
       </div>
+      <DetailModal
+        title={"Reservation Detail"}
+        open={open}
+        handleOpen={() => handleOpen(null)}
+        detail={detail}
+        formatDate={formatDate}
+      >
+        <table className="w-full mt-5 text-left font-montserrat text-sm text-gray-800">
+          <tr className="h-7">
+            <td className="font-semibold md:w-52 w-32">Type of Service:</td>
+            <td className="font-regular">{detail?.typeOfService}</td>
+          </tr>
+          <tr className="h-7">
+            <td className="font-semibold md:w-52 w-32">Branch:</td>
+            <td className="font-regular">{detail?.branch}</td>
+          </tr>
+          <tr className="h-7">
+            <td className="font-semibold md:w-52 w-32">Customer Name:</td>
+            <td className="font-regular">{detail?.name}</td>
+          </tr>
+          <tr className="h-7">
+            <td className="font-semibold md:w-52 w-32">Phone Number:</td>
+            <td className="font-regular">{detail?.phoneNumber}</td>
+          </tr>
+          <tr className="h-7">
+            <td className="font-semibold md:w-52 w-32">Date & Time:</td>
+            <td className="font-regular">
+              {detail && formatDate(detail?.dateAndTime)}
+            </td>
+          </tr>
+          <tr className="h-7">
+            <td className="font-semibold md:w-52 w-32">Booking Time:</td>
+            <td className="font-regular">
+              {detail && formatDate(detail?.updatedAt)}
+            </td>
+          </tr>
+        </table>
+      </DetailModal>
     </div>
   );
 }

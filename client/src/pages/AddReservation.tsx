@@ -10,7 +10,7 @@ export default function Reservation() {
   };
 
   return (
-    <div className="flex items-center pb-16 pt-32 px-5 md:px-32 flex-col">
+    <div className="flex items-center pb-16 pt-32 px-5 md:px-32 lg:px-56 xl:px-80 flex-col">
       <div className="h-fit w-full relative">
         <Suspense
           fallback={<p className="font-montserrat m-auto">Loading...</p>}

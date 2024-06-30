@@ -5,11 +5,11 @@ import ServiceModal from "../components/forms/ServiceModal";
 import axios from "axios";
 import { getAuthToken } from "../util/auth";
 import { defer, Await, useLoaderData } from "react-router-dom";
-import { loadBranches, loadServices } from "../util/admin";
+import { loadBranches, loadReservations, loadServices } from "../util/admin";
 import { FiPlusCircle } from "react-icons/fi";
 import ListItem from "../components/ListItem";
 import BranchSection from "../sections/BranchSection";
-import { Service, Branch, Review } from "../util/interfaces";
+import { Service, Branch, Review, Reservation } from "../util/interfaces";
 import { loadReviews } from "../components/ReviewCarousel.tsx";
 import { deleteService } from "../util/http.tsx";
 
@@ -25,62 +25,65 @@ const calculateAverageRating = (reviews: Review[]) => {
   return Number(average.toFixed(2));
 };
 
-export const formatTime = (date: Date) => {
-  return new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Jakarta",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  }).format(new Date(date));
-};
-
 export default function AdminDashboard() {
   const [open, setOpen] = useState<boolean>(false);
-  const { services, branches, reviews } = useLoaderData() as {
+  const { services, branches, reviews, reservations } = useLoaderData() as {
     services: Service[];
     branches: Branch[];
     reviews: Review[];
+    reservations: Reservation[];
   };
   const handleOpen = () => setOpen((curr) => !curr);
-  const token = getAuthToken();
 
   return (
     <div className="w-full pt-7 px-5 md:px-12">
       <div className="w-fit m-auto border-2 flex flex-wrap justify-center gap-5">
-        <Await resolve={services}>
-          {(loadedServices) => (
-            <StatCard
-              title="Services"
-              bgColor="bg-red-300"
-              num={loadedServices.length}
-            />
-          )}
-        </Await>
-        <Await resolve={services}>
-          {(loadedBranches) => (
-            <StatCard
-              title="Branches"
-              bgColor="bg-blue-200"
-              num={loadedBranches.length}
-            />
-          )}
-        </Await>
-        <Await resolve={reviews}>
-          {(loadedReviews) => (
-            <>
+        <Suspense
+          fallback={<p className="font-montserrat m-auto">Loading...</p>}
+        >
+          <Await resolve={branches}>
+            {(loadedBranches) => (
               <StatCard
-                title="Average Rating"
-                bgColor="bg-yellow-200"
-                num={calculateAverageRating(loadedReviews)}
+                title="Branches"
+                bgColor="bg-blue-200"
+                num={loadedBranches.length}
               />
+            )}
+          </Await>
+        </Suspense>
+        <Suspense
+          fallback={<p className="font-montserrat m-auto">Loading...</p>}
+        >
+          <Await resolve={reservations}>
+            {(loadedReservations) => (
               <StatCard
-                title="Reviews"
-                bgColor="bg-purple-200"
-                num={loadedReviews.length}
+                title="Reservations"
+                bgColor="bg-red-300"
+                num={loadedReservations.length}
               />
-            </>
-          )}
-        </Await>
+            )}
+          </Await>
+        </Suspense>
+        <Suspense
+          fallback={<p className="font-montserrat m-auto">Loading...</p>}
+        >
+          <Await resolve={reviews}>
+            {(loadedReviews) => (
+              <>
+                <StatCard
+                  title="Average Rating"
+                  bgColor="bg-yellow-200"
+                  num={calculateAverageRating(loadedReviews)}
+                />
+                <StatCard
+                  title="Reviews"
+                  bgColor="bg-purple-200"
+                  num={loadedReviews.length}
+                />
+              </>
+            )}
+          </Await>
+        </Suspense>
       </div>
       <div className="h-fit mt-7 p-10 rounded-t-lg bg-white shadow-xl flex flex-wrap gap-5 lg:justify-between justify-center">
         <div className="md:max-w-[300px] w-full">
@@ -96,14 +99,19 @@ export default function AdminDashboard() {
               fallback={<p className="font-montserrat m-auto">Loading...</p>}
             >
               <Await resolve={services}>
-                {(loadedServices) =>
-                  Object.values(loadedServices).map((s) => (
-                    <ListItem isAdmin={true} id={s._id} deleteFn={deleteService}>
+                {(loadedServices: Service[]) =>
+                  loadedServices.map((s) => (
+                    <ListItem
+                      key={s._id}
+                      isAdmin={true}
+                      id={s._id}
+                      deleteFn={deleteService}
+                    >
                       <>
                         <p className="font-bold">{s.name}</p>
                         <p className="mt-1 text-xs">
                           <span className="font-medium">Duration:</span>{" "}
-                          {s.duration} Minute{parseInt(s.duration) > 1 && "s"}
+                          {s.duration} Minute{s.duration > 1 && "s"}
                         </p>
                       </>
                     </ListItem>
@@ -139,7 +147,8 @@ export async function loader() {
   return defer({
     services: loadServices(),
     branches: loadBranches(),
-    reviews: await loadReviews(),
+    reviews: loadReviews(),
+    reservations: loadReservations(),
   });
 }
 

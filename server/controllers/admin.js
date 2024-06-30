@@ -87,14 +87,17 @@ exports.deleteBranch = async (req, res) => {
     const branch = await Branch.findById(branchId);
     if (!branch) {
       return res.status(404).json({ message: "Branch not found" });
-    } else {
-      await Branch.deleteOne({ _id: branchId });
-      res.status(200).json({ message: "Branch deleted successfully" });
     }
+    
+    await Branch.deleteOne({ _id: branchId });
+    await Reservation.deleteMany({ branch: branch.name });
+
+    res.status(200).json({ message: "Branch and related reservations deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.deleteReservation = async (req, res) => {
   const { reservationId } = req.params;

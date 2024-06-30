@@ -3,10 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
-import { ReservationData, Branch } from "../util/interfaces"; 
+import { ReservationData, BranchModel } from "../util/interfaces"; 
 
 
-export function useAddReservation(token: string | null, branches: Branch[]) {
+export function useAddReservation(token: string | null, branches: BranchModel[]) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();

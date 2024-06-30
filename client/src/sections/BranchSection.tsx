@@ -1,7 +1,7 @@
 import ListItem from "../components/ListItem";
 import Border from "../components/Border";
-import { formatTime } from "../pages/Admin";
-import { Branch } from "../util/interfaces";
+import { formatTime } from "../util/format";
+import { BranchModel } from "../util/interfaces";
 import { useEffect, useState } from "react";
 import { deleteBranch } from "../util/http";
 
@@ -9,11 +9,11 @@ export default function BranchSection({
   branches,
   searchable,
 }: {
-  branches: Branch[];
+  branches: BranchModel[];
   searchable: boolean;
 }) {
   const [searchBranch, setSearchBranch] = useState("");
-  const [result, setResult] = useState<Branch[]>(branches);
+  const [result, setResult] = useState<BranchModel[]>(branches);
   const role = localStorage.getItem("role");
 
   const isAdmin = (role === "admin" ? true : false);
@@ -24,9 +24,9 @@ export default function BranchSection({
     );
     setResult(filteredData);
   }, [searchBranch, branches]);
-  
+
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <div className="px-1">
         {searchable && (
           <input
@@ -41,7 +41,7 @@ export default function BranchSection({
       <Border>
         {result &&
           Object.values(result).map((b) => (
-            <ListItem isAdmin={isAdmin} id={b._id} deleteFn={deleteBranch}>
+            <ListItem isAdmin={isAdmin} id={b._id} deleteFn={deleteBranch} key={b._id}>
               <div>
                 <p className="font-bold text-lg m-1">{b.name}</p>
                 <div className="w-fit flex flex-wrap gap-1 my-1 py-1 bg-gray-100">

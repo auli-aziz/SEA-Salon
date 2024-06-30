@@ -24,7 +24,16 @@ export interface Service {
 export interface Branch {
   _id: string;
   name: string;
-  services: { name: string; }[];
+  services: { label: string; value: string; }[];
+  location: string;
+  openingTime: Dayjs;
+  closingTime: Dayjs;
+}
+
+export interface BranchModel {
+  _id: string;
+  name: string;
+  services: { _id: string; name: string; duration: number }[];
   location: string;
   openingTime: Date;
   closingTime: Date;
@@ -48,4 +57,10 @@ export interface ReservationData {
   branch: string;
   typeOfService: string;
   dateAndTime: Dayjs;
+}
+
+export interface data {
+  message: string;
+  errors: string;
+  status: number;
 }
