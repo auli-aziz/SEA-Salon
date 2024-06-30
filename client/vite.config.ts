@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const baseURL = 'https://sea-salon-api.vercel.app/';
+const baseURL = 'https://sea-salon-api.vercel.app';
 
 // https://vitejs.dev/config/
 export default defineConfig({
