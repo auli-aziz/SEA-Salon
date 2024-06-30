@@ -7,22 +7,33 @@ import { useAddReservation } from "../../hooks/useAddReservation";
 import Input from "../Input";
 import TransparentButton from "../TransparentButton";
 
-export default function ReservationForm({ branches }: { branches: BranchModel[] }) {
+export default function ReservationForm({
+  branches,
+}: {
+  branches: BranchModel[];
+}) {
   const [date, setDate] = useState<Dayjs | null>(null);
   const name = useRef<HTMLInputElement>(null);
   const phoneNumber = useRef<HTMLInputElement>(null);
-  const token = useRouteLoaderData('root') as string | null;
-  const [branch, setBranch] = useState<string>(branches[0].name);
-  const [services, setServices] = useState<{ _id: string; name: string }[]>(branches[0].services);
-  const [selectedService, setSelectedService] = useState<string>(branches[0].services[0].name);
+  const token = useRouteLoaderData("root") as string | null;
+  const [branch, setBranch] = useState<string>(branches[0]?.name || "");
+  const [services, setServices] = useState<{ _id: string; name: string }[]>(
+    branches[0]?.services || []
+  );
+  const [selectedService, setSelectedService] = useState<string>(
+    branches[0]?.services[0]?.name || ""
+  );
 
-  const { addReservation, isSubmitting, error } = useAddReservation(token, branches);
+  const { addReservation, isSubmitting, error } = useAddReservation(
+    token,
+    branches
+  );
 
   useEffect(() => {
-    const selectedBranch = branches.find(b => b.name === branch);
+    const selectedBranch = branches.find((b) => b.name === branch);
     if (selectedBranch) {
       setServices(selectedBranch.services);
-      setSelectedService(selectedBranch.services[0].name);
+      setSelectedService(selectedBranch.services[0]?.name || "");
     }
   }, [branch, branches]);
 
@@ -60,14 +71,14 @@ export default function ReservationForm({ branches }: { branches: BranchModel[] 
           name="name"
           placeholder=""
           ref={name}
-         />
+        />
         <Input
           labelName="Phone Number"
           type="tel"
           name="phoneNumber"
           placeholder=""
           ref={phoneNumber}
-         />
+        />
       </div>
       <div className="mt-3 font-montserrat text-sm">
         <label className="font-semibold">Branch</label>
@@ -76,9 +87,17 @@ export default function ReservationForm({ branches }: { branches: BranchModel[] 
           value={branch}
           onChange={(e) => setBranch(e.target.value)}
         >
-          {branches.map((b) => (
-            <option value={b.name} key={b._id}>{b.name}</option>
-          ))}
+          {branches.length > 0 ? (
+            branches.map((b) => (
+              <option value={b.name} key={b._id}>
+                {b.name}
+              </option>
+            ))
+          ) : (
+            <option className="flex h-full w-full">
+              <p className="m-auto">No branches available</p>
+            </option>
+          )}
         </select>
       </div>
       <div className="mt-3 font-montserrat text-sm">
@@ -88,9 +107,17 @@ export default function ReservationForm({ branches }: { branches: BranchModel[] 
           value={selectedService}
           onChange={(e) => setSelectedService(e.target.value)}
         >
-          {services.map((s) => (
-            <option value={s.name} key={s._id}>{s.name}</option>
-          ))}
+          {services.length > 0 ? (
+            services.map((s) => (
+              <option value={s.name} key={s._id}>
+                {s.name}
+              </option>
+            ))
+          ) : (
+            <option className="flex h-full w-full">
+              <p className="m-auto">No services available</p>
+            </option>
+          )}
         </select>
       </div>
       <div className="font-montserrat text-sm mt-3">

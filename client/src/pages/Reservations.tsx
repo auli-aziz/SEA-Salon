@@ -41,11 +41,17 @@ export default function Reservations() {
               >
                 <Await resolve={branches}>
                   {(loadedBranches) =>
-                    loadedBranches.map((b) => (
-                      <option value={b.name} key={b._id}>
-                        {b.name}
+                    loadedBranches.length > 0 ? (
+                      loadedBranches.map((b) => (
+                        <option value={b.name} key={b._id}>
+                          {b.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option className="flex h-full w-full">
+                        <p className="m-auto">No branches found</p>
                       </option>
-                    ))
+                    )
                   }
                 </Await>
               </Suspense>
@@ -57,26 +63,32 @@ export default function Reservations() {
             fallback={<p className="font-montserrat m-auto">Loading...</p>}
           >
             <Await resolve={reservations}>
-              {reservation.map((r) => (
-                <ListItem
-                  isAdmin={true}
-                  id={r._id}
-                  deleteFn={deleteReservation}
-                >
-                  <>
-                    <p className="text-base md:text-lg font-semibold">
-                      {r.name}
-                    </p>
-                    <div className="w-fit px-3 my-2 bg-red-100 rounded-md text-center font-medium text-xs">
-                      {r.typeOfService}
-                    </div>
-                    <p className="text-xs md:text-sm">{r.phoneNumber}</p>
-                    <p className="text-red-900 font-medium text-xs md:text-sm">
-                      {formatDate(r.dateAndTime)}
-                    </p>
-                  </>
-                </ListItem>
-              ))}
+              {reservation.length > 0 ? (
+                reservation.map((r) => (
+                  <ListItem
+                    isAdmin={true}
+                    id={r._id}
+                    deleteFn={deleteReservation}
+                  >
+                    <>
+                      <p className="text-base md:text-lg font-semibold">
+                        {r.name}
+                      </p>
+                      <div className="w-fit px-3 my-2 bg-red-100 rounded-md text-center font-medium text-xs">
+                        {r.typeOfService}
+                      </div>
+                      <p className="text-xs md:text-sm">{r.phoneNumber}</p>
+                      <p className="text-red-900 font-medium text-xs md:text-sm">
+                        {formatDate(r.dateAndTime)}
+                      </p>
+                    </>
+                  </ListItem>
+                ))
+              ) : (
+                <div className="flex h-full w-full">
+                  <p className="m-auto">No reservations found</p>
+                </div>
+              )}
             </Await>
           </Suspense>
         </Border>

@@ -11,19 +11,19 @@ export default defineConfig({
       '/customer': {
         target: baseURL,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         rewrite: (path) => path.replace(/^\/customer/, '/customer'),
       },
       '/authentication': {
         target: baseURL,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         rewrite: (path) => path.replace(/^\/authentication/, '/authentication'),
       },
       '/administrator': {
         target: baseURL,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         rewrite: (path) => path.replace(/^\/administrator/, '/administrator'),
       },
     }

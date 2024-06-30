@@ -100,22 +100,28 @@ export default function AdminDashboard() {
             >
               <Await resolve={services}>
                 {(loadedServices: Service[]) =>
-                  loadedServices.map((s) => (
-                    <ListItem
-                      key={s._id}
-                      isAdmin={true}
-                      id={s._id}
-                      deleteFn={deleteService}
-                    >
-                      <>
-                        <p className="font-bold">{s.name}</p>
-                        <p className="mt-1 text-xs">
-                          <span className="font-medium">Duration:</span>{" "}
-                          {s.duration} Minute{s.duration > 1 && "s"}
-                        </p>
-                      </>
-                    </ListItem>
-                  ))
+                  loadedServices.length > 0 ? (
+                    loadedServices.map((s) => (
+                      <ListItem
+                        key={s._id}
+                        isAdmin={true}
+                        id={s._id}
+                        deleteFn={deleteService}
+                      >
+                        <>
+                          <p className="font-bold">{s.name}</p>
+                          <p className="mt-1 text-xs">
+                            <span className="font-medium">Duration:</span>{" "}
+                            {s.duration} Minute{s.duration > 1 && "s"}
+                          </p>
+                        </>
+                      </ListItem>
+                    ))
+                  ) : (
+                    <div className="flex h-full w-full">
+                      <p className="m-auto">No services found</p>
+                    </div>
+                  )
                 }
               </Await>
             </Suspense>

@@ -16,7 +16,7 @@ export default function BranchSection({
   const [result, setResult] = useState<BranchModel[]>(branches);
   const role = localStorage.getItem("role");
 
-  const isAdmin = (role === "admin" ? true : false);
+  const isAdmin = role === "admin" ? true : false;
 
   useEffect(() => {
     const filteredData = Object.values(branches).filter((branch) =>
@@ -39,14 +39,22 @@ export default function BranchSection({
         )}
       </div>
       <Border>
-        {result &&
+        {result.length > 0 ? (
           Object.values(result).map((b) => (
-            <ListItem isAdmin={isAdmin} id={b._id} deleteFn={deleteBranch} key={b._id}>
+            <ListItem
+              isAdmin={isAdmin}
+              id={b._id}
+              deleteFn={deleteBranch}
+              key={b._id}
+            >
               <div>
                 <p className="font-bold text-lg m-1">{b.name}</p>
                 <div className="w-fit flex flex-wrap gap-1 my-1 py-1 bg-gray-100">
                   {Object.values(b.services).map((s) => (
-                    <div key={s.name} className="w-fit px-3 bg-red-100 rounded-md text-center font-medium text-xs">
+                    <div
+                      key={s.name}
+                      className="w-fit px-3 bg-red-100 rounded-md text-center font-medium text-xs"
+                    >
                       {s.name}
                     </div>
                   ))}
@@ -57,7 +65,12 @@ export default function BranchSection({
                 </p>
               </div>
             </ListItem>
-          ))}
+          ))
+        ) : (
+          <div className="flex h-full w-full">
+            <p className="m-auto">No branches found</p>
+          </div>
+        )}
       </Border>
     </div>
   );
