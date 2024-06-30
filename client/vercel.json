@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/customer/(.*)", "destination": "https://sea-salon-api.vercel.app/customer/$1" },
+    { "source": "/authentication/(.*)", "destination": "https://sea-salon-api.vercel.app/authentication/$1" },
+    { "source": "/administrator/(.*)", "destination": "https://sea-salon-api.vercel.app/administrator/$1" }
+  ]
+}

@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 const baseURL = 'https://sea-salon-api.vercel.app';
 
@@ -12,20 +12,17 @@ export default defineConfig({
         target: baseURL,
         changeOrigin: true,
         secure: true,
-        rewrite: (path) => path.replace(/^\/customer/, '/customer'),
       },
       '/authentication': {
         target: baseURL,
         changeOrigin: true,
         secure: true,
-        rewrite: (path) => path.replace(/^\/authentication/, '/authentication'),
       },
       '/administrator': {
         target: baseURL,
         changeOrigin: true,
         secure: true,
-        rewrite: (path) => path.replace(/^\/administrator/, '/administrator'),
       },
     }
   }
-})
+});
